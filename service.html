@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Fetch</title>
+</head>
+<body>
+  <div id="data-container"></div>
+
+  <script>
+    fetch('http://127.0.0.1:8000/services/')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        const container = document.getElementById('data-container');
+        data.forEach(service => {
+          const item = document.createElement('div');
+          item.textContent = `${service.name} - ${service.description}`;
+          container.appendChild(item);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html> 
