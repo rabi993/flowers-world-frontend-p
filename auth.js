@@ -4,6 +4,7 @@ const handleRegistration = (event) => {
   const first_name = getValue("first_name");
   const last_name = getValue("last_name");
   const email = getValue("email");
+  const address = getValue("address"); 
   const password = getValue("password");
   const confirm_password = getValue("confirm_password");
   const info = {
@@ -11,6 +12,7 @@ const handleRegistration = (event) => {
     first_name,
     last_name,
     email,
+    address,
     password,
     confirm_password,
   };
@@ -24,7 +26,7 @@ const handleRegistration = (event) => {
     ) {
       console.log(info);
 
-      fetch("https://testing-8az5.onrender.com/patient/register/", {
+      fetch("http://127.0.0.1:8000/buyers/register/", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(info),
@@ -53,7 +55,7 @@ const handleLogin = (event) => {
   const password = getValue("login-password");
   console.log(username, password);
   if ((username, password)) {
-    fetch("https://testing-8az5.onrender.com/patient/login/", {
+    fetch("http://127.0.0.1:8000/buyers/login/", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ username, password }),

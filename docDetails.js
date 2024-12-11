@@ -1,11 +1,11 @@
 const getparams = () => {
-  const param = new URLSearchParams(window.location.search).get("doctorId");
+  const param = new URLSearchParams(window.location.search).get("flowerId");
   loadTime(param);
-  fetch(`https://testing-8az5.onrender.com/doctor/list/${param}`)
+  fetch(`http://127.0.0.1:8000/flowers/list/${param}`)
     .then((res) => res.json())
     .then((data) => displayDetails(data));
 
-  fetch(`https://testing-8az5.onrender.com/doctor/review/?doctor_id=${param}`)
+  fetch(`http://127.0.0.1:8000/flowers/reviews/?flower_id=${param}`)
     .then((res) => res.json())
     .then((data) => doctorReview(data));
 };
@@ -18,10 +18,11 @@ const doctorReview = (reviews) => {
     div.innerHTML = `
           <img src="./Images/girl.png" alt="" />
               <h4>${review.reviewer}</h4>
-              <p>
-               ${review.body.slice(0, 100)}
-              </p>
-              <h6>${review.rating}</h6>
+            <h5>${review.flower}</h5>
+            <p>
+             ${review.body.slice(0, 100)}
+            </p>
+            <h6>${review.rating}</h6>
           `;
     parent.appendChild(div);
   });
@@ -37,32 +38,77 @@ const displayDetails = (doctor) => {
     <img src=${doctor.image} alt="" />
   </div>
   <div class="doc-info">
-    <h1>${doctor.full_name} </h1>
-    ${doctor.specialization.map((item) => {
-      return `<button class="doc-detail-btn">${item}</button>`;
-    })}
-    ${doctor.designation.map((item) => {
-      return `<h4 >${item}</h4>`;
-    })}
-
-    <p class="w-50">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quibusdam
-      quis excepturi tempore. Eius, qui!
-    </p>
-
-    <h4>Fees: ${doctor.fee} BDT</h4>
+    <h4>${doctor?.title}</h4>
+              ${doctor?.category?.map((item) => {
+                return `<button>${item}</button>`;
+              })}
+              <h6>Available : ${doctor?.available}</h6>
+              <p>
+              ${doctor?.content}
+              </p>
+              
+              <h6>Price : ${doctor?.price}</h6>
+              <p>
+              ${doctor?.color?.map((item) => {
+                return `<button>${item}</button>`;
+              })}
+              </p>
     <button
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
   >
-   Take Appointment
+   Buy Now
   </button>
   </div>
     `;
   parent.appendChild(div);
 };
+
+const handleReviewSubmission = (event) => {
+  event.preventDefault(); // Prevent form from refreshing the page
+
+  const reviewerName = document.getElementById("reviewerName").value;
+  const reviewBody = document.getElementById("reviewBody").value;
+  const reviewRating = document.getElementById("reviewRating").value;
+  const flowerId = new URLSearchParams(window.location.search).get("flowerId");
+
+  const reviewData = {
+    reviewer: reviewerName,
+    body: reviewBody,
+    rating: reviewRating,
+    flower: flowerId, // Assuming `flower` is the key for the flower ID
+  };
+
+  fetch("http://127.0.0.1:8000/flowers/reviews/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reviewData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to submit review");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert("Review submitted successfully!");
+      // Optionally, reload the reviews section to show the newly added review
+      const reviewList = document.getElementById("doc-details-review");
+      reviewList.innerHTML = ""; // Clear existing reviews
+      fetch(`http://127.0.0.1:8000/flowers/reviews/?flower_id=${flowerId}`)
+        .then((res) => res.json())
+        .then((data) => doctorReview(data));
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Error submitting review. Please try again later.");
+    });
+};
+
 
 const loadTime = (id) => {
   fetch(

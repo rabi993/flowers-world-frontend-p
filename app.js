@@ -118,7 +118,7 @@ const displyDoctors = (doctors) => {
     // console.log(doctor);
     const parent = document.getElementById("doctors");
     const div = document.createElement("div");
-    div.classList.add("doc-card");
+    div.classList.add("doc-card", "col-12", "col-md-6", "col-lg-4");
     div.innerHTML = `
         <img class="doc-img" src=${doctor.image} alt="" />
               <h4>${doctor?.title}</h4>
@@ -137,7 +137,7 @@ const displyDoctors = (doctors) => {
               })}
               </p>
 
-              <button > <a target="_blank" href="docDetails.html?doctorId=${
+              <button > <a target="_blank" href="docDetails.html?flowerId=${
                 doctor.id
               }">Details</a> </button>
         `;

@@ -58,17 +58,17 @@ nav{
     padding: 30px;
 }
 .doc-card{
-    width: 300px;
+    width: 400px;
 
-    height: 400px;
+    height: 500px;
     box-shadow: 4px 4px 8px gray;
     border-radius: 10px;
     text-align:center;
-    padding: 15px;
+    padding: 5px;
 }
 .doc-img{
-    width: 100px;
-    height: 100px;
+    width: 350px;
+    height: 250px;
     border-radius: 50px;
 }
 #search{
@@ -106,15 +106,15 @@ footer{
 }
 
 .doctor-img img{
-width: 150px;
-height: 150px;
+width: 600px;
+height: 450px;
 border-radius: 100px;
 }
 .doc-details-container{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     padding: 30px;
-    gap: 50px;
+    gap: 100px;
     width: 75%;
     margin: auto;
 }
