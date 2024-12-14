@@ -13,5 +13,11 @@ const handlelogOut = () => {
       console.log(data);
       localStorage.removeItem("token");
       localStorage.removeItem("user_id");
+      localStorage.removeItem("buyer_id");
+      localStorage.removeItem("username");
+
+
+      // Redirect to login page
+      window.location.href = "login.html"; // Redirect to the login page
     });
 };

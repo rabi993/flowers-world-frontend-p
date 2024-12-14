@@ -216,3 +216,58 @@ loadDoctors();
 loadDesignation();
 loadSpecialization();
 loadReview();
+
+
+const loadBuyerId = () => {
+  const user_id = localStorage.getItem("user_id"); // Get the user_id from localStorage
+  if (!user_id) {
+    console.error("User ID is not found in localStorage.");
+    return;
+  }
+
+  // Step 1: Fetch the username using user_id
+  fetch(`http://127.0.0.1:8000/users/${user_id}/`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch user: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then((userData) => {
+      // Store the username in localStorage
+      localStorage.setItem("username", userData.username);
+      const username = userData.username;
+
+      // Step 2: Fetch the list of buyers
+      return fetch(`http://127.0.0.1:8000/buyers/list/`);
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch buyers: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then((buyersData) => {
+      // Step 3: Find the buyer with the matching username
+      const username = localStorage.getItem("username");
+      const buyer = buyersData.find((buyer) => buyer.user === username);
+      if (buyer) {
+        // Store the buyer_id in localStorage
+        localStorage.setItem("buyer_id", buyer.id);
+        console.log(`Buyer ID (${buyer.id}) stored successfully.`);
+      } else {
+        console.error("No buyer found with the specified username.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching or processing data:", error);
+    });
+};
+
+// Call the function
+loadBuyerId();
+
+
+
+
+

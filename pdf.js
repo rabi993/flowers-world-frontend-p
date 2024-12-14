@@ -1,42 +1,64 @@
 const handlePdf = () => {
-  const doctor_id = new URLSearchParams(window.location.search).get("doctorId");
-  console.log(doctor_id);
+  const flower_id = new URLSearchParams(window.location.search).get("flowerId");
+  console.log(flower_id);
   const user_id = localStorage.getItem("user_id");
-  console.log(`https://testing-8az5.onrender.com/users/${user_id}`);
-  fetch(`https://testing-8az5.onrender.com/doctor/list/${doctor_id}`)
+  const buyer_id = localStorage.getItem("buyer_id");
+  // console.log(`http://127.0.0.1:8000/users/${user_id}`);
+  
+  fetch(`http://127.0.0.1:8000/orders/?flower_id=${flower_id}&buyer_id=${buyer_id}`)
     .then((res) => res.json())
-    .then((data) => {
-      fetch(`https://testing-8az5.onrender.com/users/${user_id}`)
+    .then((orderdata) => {
+      fetch(`http://127.0.0.1:8000/users/${user_id}`)
         .then((res) => res.json())
-        .then((pdData) => {
-          const newData = [data, pdData];
-          console.log(newData);
-          const parent = document.getElementById("pdf-container");
-          const div = document.createElement("div");
-          div.innerHTML = `
-              <div class="pd d-flex justify-content-around align-items-center p-5">
-              <div class="patient doctor p-5">
-               
-                <h1>${newData[1].username}</h1>
-                <h1>${newData[1].first_name} ${newData[1].last_name}</h1>
-                <h4>${newData[1].email}</h4>
-              
-              </div>
-              <div class="doctor p-5">
-              <img class="w-25" src=${newData[0].image}/>
-                <h2 class="doc-name">${newData[0].full_name}</h2>
-                <h3>designation: designation</h3>
-                <h5>specialization: specialization</h5>
-              </div>
-            </div>
-            <input id="pdf-symtom" class="symtom" type="text" />
-            <h1 id="pdf-fees" class="text-center p-2 mt-3">Fees: ${newData[0].fee}BDT</h1>
-              `;
+        .then((userdata) => {
+          fetch(`http://127.0.0.1:8000/flowers/list/${flower_id}`)
+            .then((res) => res.json())
+            .then((flowerdata) => {
+              fetch(`http://127.0.0.1:8000/buyers/list/${buyer_id}`)
+                .then((res) => res.json())
+                .then((buyerdata) => {
+                  const newData = [orderdata, userdata,flowerdata, buyerdata];
+                  console.log(newData);
+                  const parent = document.getElementById("pdf-container");
+                  const div = document.createElement("div");
+                  div.innerHTML = `
+                      <div class="pd d-flex justify-content-center gap-5 align-items-center p-5">
+                      <div class=" ps-4 pt-3 pdfhtml ">
+                        <img class="w-25" src=${newData[3].image}/>
+                        <h5>Username: ${newData[1].username} UserID: ${newData[1].id}</h5>
+                        <h4>Name: ${newData[1].first_name} ${newData[1].last_name}</h4>
+                        <h5>Email: ${newData[1].email}</h5>
+                        <h5>Address: ${newData[0][newData[0].length - 1].delivery_address}</h5>
+                        <h5>Mobile: ${newData[0][newData[0].length - 1].mobile_no}</h5>
+                        <h5>Buyer_id: ${buyer_id}</h5>
+                        
+                      
+                      </div>
+                      <div class="ps-4 pt-3 pdfhtml">
+                      <h3 class="doc-name">Order ID: ${newData[0][newData[0].length - 1].id}</h3>
+                      <img class="w-25" src=${newData[2].image}/>
+                        <h3 class="doc-name">${newData[2].title}</h3>
+                        <p>Order_types: ${newData[0][newData[0].length - 1].order_types}</p>
+                        <p>Order_date: ${newData[0][newData[0].length - 1].order_date}</p>
+                        <p>Delivery_date: ${newData[0][newData[0].length - 1].delivery_date}</p>
+                        <p>Quantity: ${newData[0][newData[0].length - 1].quantity}</p>
+                        <h5>Price/Unit: ${newData[2].price} $</h5>
+                        
+                        <h5>Total: ${newData[0][newData[0].length - 1].total_price} $</h5>
 
-            parent.appendChild(div);
-            donwloadPdf();
+                        
+                      </div>
+                    </div>
+                    <h4>Total Price + Vat(15%): ${newData[0][newData[0].length - 1].total_price *1.15} $</h5>
+                     <input id="pdf-symtom" class="symtom" type="text" />
+                    `;
+
+                    parent.appendChild(div);
+                    // donwloadPdf();
+                });    
+            });
+          
         });
-      
     });
 };
 
