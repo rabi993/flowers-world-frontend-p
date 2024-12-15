@@ -33,6 +33,7 @@ const loadAllAppointment = () => {
             <td>${item.mobile_no}</td>
             <td>${item.order_date}</td>
             <td>${item.delivery_date}</td>
+            <td>${item.delivery_address}</td>
             <td>${item.price} $</td>
             <td>${item.total_price} $</td>
             `;
@@ -42,3 +43,4 @@ const loadAllAppointment = () => {
 };
 
 loadAllAppointment();
+

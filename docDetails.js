@@ -388,6 +388,12 @@ const submitOrderForm = (event) => {
     .then((data) => {
       // document.getElementById("exampleModal").style.display = "none"; // Close modal
       console.log("Order Response:", data);
+
+
+      const orderId = data.id; // Assuming the response contains an `id` field for the order
+      let orderIds = JSON.parse(localStorage.getItem("order_ids")) || []; // Get the existing array or initialize a new one
+      orderIds.push(orderId); // Add the new order_id
+      localStorage.setItem("order_ids", JSON.stringify(orderIds)); // Save back to localStorage
       // Close the modal
       const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
       modal.hide();

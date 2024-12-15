@@ -142,10 +142,10 @@ border-radius:100px;
     align-items: center;
     gap: 50px;
 }
-.all-appointment-container{
+.order-container{
     width: 90%;
     margin: auto;
-    height: 100vh;
+    height: 40vh;
 }
 
 

@@ -54,7 +54,7 @@ const handlePdf = () => {
                     `;
 
                     parent.appendChild(div);
-                    // donwloadPdf();
+                    donwloadPdf();
                 });    
             });
           

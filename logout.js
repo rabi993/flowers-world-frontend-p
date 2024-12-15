@@ -15,6 +15,8 @@ const handlelogOut = () => {
       localStorage.removeItem("user_id");
       localStorage.removeItem("buyer_id");
       localStorage.removeItem("username");
+      localStorage.removeItem("username");
+      localStorage.removeItem("order_ids");
 
 
       // Redirect to login page

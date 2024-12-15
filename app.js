@@ -137,7 +137,7 @@ const displyDoctors = (doctors) => {
               })}
               </p>
 
-              <button > <a target="_blank" href="docDetails.html?flowerId=${
+              <button > <a target="" href="docDetails.html?flowerId=${
                 doctor.id
               }">Details</a> </button>
         `;
