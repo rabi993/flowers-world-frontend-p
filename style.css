@@ -102,7 +102,7 @@ nav{
 
 footer{
     padding: 50px;
- background: linear-gradient(66deg, #1CA8C7 -5.25%, #439FA5 46.76%, #4C7D8C 98.77%);;
+    background: linear-gradient(66deg, #1CA8C7 -5.25%, #439FA5 46.76%, #4C7D8C 98.77%);;
 }
 
 .doctor-img img{
@@ -145,7 +145,7 @@ border-radius:100px;
 .order-container{
     width: 90%;
     margin: auto;
-    height: 40vh;
+    /* height: 40vh; */
 }
 
 
