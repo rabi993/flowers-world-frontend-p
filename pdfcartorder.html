@@ -55,9 +55,13 @@
     <div id="totalamountV" class="text-center">
       
     </div>
-    
+    <!-- if paid{
+    <h3 class="text-center text-success d-none" >PAID</h3>
+    }
+    else{
     <div class="text-center">
-      <input
+      <div>
+        <input
         type="number"
         id="billInput"
         placeholder="Enter Bill amount"
@@ -70,6 +74,9 @@
       >
         Pay Bill
       </button>
+      </div>
+    }
+      
     </div>
     
     <script>
@@ -105,13 +112,99 @@
         alert("Congratulations! Your order is pending now.");
     
         // Redirect to index.html
-        window.location.href = "index.html";
+        // window.location.href = "index.html";
+        window.reload();
     
         // Remove order_ids from localStorage
         localStorage.removeItem("order_ids");
         localStorage.removeItem("totalWithVAT");
       });
     </script>
+     -->
+    <div id="paid" class="text-center">
+      <!-- PAID message will display here dynamically -->
+    </div>
+    
+    <div class="text-center">
+      <div>
+        <input
+          type="number"
+          id="billInput"
+          placeholder="Enter Bill amount"
+          required
+          class="form-control w-25 mx-auto mb-2"
+        />
+        <button
+          id="payment"
+          class="btn btn-success px-5 py-2"
+          disabled
+        >
+          Pay Bill
+        </button>
+      </div>
+    </div>
+    
+    <script>
+      const billInput = document.getElementById("billInput");
+      const paymentButton = document.getElementById("payment");
+      const totalWithVAT = parseFloat(localStorage.getItem("totalWithVAT")) ;
+    
+      // Enable the button only if the input matches totalWithVAT
+      billInput.addEventListener("input", () => {
+        const inputAmount = parseFloat(billInput.value);
+        if (inputAmount === totalWithVAT) {
+          paymentButton.removeAttribute("disabled");
+        } else {
+          paymentButton.setAttribute("disabled", "true");
+        }
+      });
+    
+      // Handle payment button click
+      paymentButton.addEventListener("click", () => {
+  alert("PAID !!!");
+  alert("Congratulations! Your order is pending now.");
+
+  // Add the 'PAID' message dynamically
+  document.getElementById("paid").innerHTML = `
+    <h3 class="text-center text-success">PAID</h3>
+  `;
+
+  // Disable input field and button after payment
+  billInput.value = ""; // Clear the bill input
+  billInput.setAttribute("disabled", "true");
+  paymentButton.setAttribute("disabled", "true");
+
+  // Generate PDF for the entire screen (full document body)
+  const pdfContent = document.body;
+
+  html2pdf()
+    .from(pdfContent) // Target the full body content
+    .set({
+      margin: 0, // No margin for full-screen
+      filename: "full_screen_order_and_pay_slip.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true }, // High quality and cross-origin handling
+      jsPDF: { unit: "mm", format: "a3", orientation: "portrait" },
+    })
+    .save();
+
+  // Clear localStorage values after payment
+  localStorage.removeItem("order_ids");
+  localStorage.removeItem("totalWithVAT");
+
+  // Reset any necessary UI components (optional)
+  document.getElementById("totalamount").innerHTML = "";
+  document.getElementById("totalamountV").innerHTML = "";
+
+  // Hide the input and payment section after successful payment
+  document.querySelector(".text-center").style.display = "none";
+});
+
+
+    </script>
+    
+   
+    
     
 
     <!-- <button onclick="handleDownload()">Hello</button> -->

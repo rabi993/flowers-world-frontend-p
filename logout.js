@@ -78,6 +78,7 @@ const handlelogOut = () => {
       localStorage.removeItem("username");
       localStorage.removeItem("order_ids");
       localStorage.removeItem("totalWithVAT");
+      localStorage.removeItem("isPaid");
 
       console.log("LocalStorage cleared successfully.");
 
