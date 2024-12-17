@@ -57,13 +57,51 @@
     </div>
     
     <div class="text-center">
-      <button id="confirm" class="btn btn-success px-5 py-2 ">Confirm</button>
+      <input
+        type="number"
+        id="billInput"
+        placeholder="Enter Bill amount"
+        required
+      />
+      <button
+        id="payment"
+        class="btn btn-success px-5 py-2"
+        disabled
+      >
+        Pay Bill
+      </button>
     </div>
     
     <script>
+      const billInput = document.getElementById("billInput");
+      const paymentButton = document.getElementById("payment");
+    
+      // Simulate a value stored in localStorage
+      const totalWithVAT = parseFloat(localStorage.getItem("totalWithVAT")) ;
+    
+      
+      
+    
+      billInput.addEventListener("input", () => {
+        const inputAmount = parseFloat(billInput.value) ; // Ensure a valid number
+    
+        // Enable the button only if input matches totalWithVAT
+        if (inputAmount === totalWithVAT) {
+          paymentButton.removeAttribute("disabled");
+        } 
+        else {
+          paymentButton.setAttribute("disabled", "true");
+        }
+      });
+    </script>
+    
+    
+    
+    <script>
       // Attach a click event listener to the Confirm button
-      document.getElementById("confirm").addEventListener("click", () => {
+      document.getElementById("payment").addEventListener("click", () => {
         // Display an alert
+        alert("Paid");
         alert("Congratulations! Your order is pending now.");
     
         // Redirect to index.html
@@ -71,6 +109,7 @@
     
         // Remove order_ids from localStorage
         localStorage.removeItem("order_ids");
+        localStorage.removeItem("totalWithVAT");
       });
     </script>
     

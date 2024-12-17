@@ -212,7 +212,7 @@ const loadorder = () => {
                 ${
                   item.order_status === "Pending"
                     ? `
-                    <button class="btn btn-warning edit-btn" data-id="${item.id}" data-quantity="${item.quantity}" data-flower="${item.flower}">Edit</button>
+                    <button class="btn btn-warning reorder " data-id="${item.id}" data-quantity="${item.quantity}" data-flower="${item.flower}" >reorder</button>
                     <button class="btn btn-danger delete-btn" data-id="${item.id}" data-quantity="${item.quantity}" data-flower="${item.flower}">Delete</button>
                   `
                     : ""
@@ -251,47 +251,7 @@ const loadorder = () => {
     });
 };
 
-// document.addEventListener("click", (event) => {
-//   const target = event.target;
 
-//   // Handle Delete Button
-//   if (target.classList.contains("delete-btn")) {
-//     const orderId = target.dataset.id; // Order ID from the button's data attribute
-//     const flower = target.dataset.flower; // Flower name
-//     const quantity = parseInt(target.dataset.quantity); // Quantity as an integer
-
-//     if (!orderId || !flower || isNaN(quantity)) {
-//       console.error("Invalid data attributes for delete operation.");
-//       return;
-//     }
-
-//     // Call delete API and update the available quantity
-//     fetch(`http://127.0.0.1:8000/orders/${orderId}/`, { method: "DELETE" })
-//       .then((res) => {
-//         if (res.ok) {
-//           alert("Order deleted successfully!");
-
-//           // Remove order ID from localStorage
-//           let orderIds = JSON.parse(localStorage.getItem("order_ids")) || [];
-//           orderIds = orderIds.filter((id) => id !== parseInt(orderId)); // Remove the deleted order ID
-//           localStorage.setItem("order_ids", JSON.stringify(orderIds));
-
-//           // Update available quantity
-//           updateAvailable(flower, quantity);
-
-//           // Reload the orders table
-//           loadorder();
-//         } else {
-//           alert("Failed to delete the order!");
-//           console.error("Delete API responded with an error.");
-//         }
-//       })
-//       .catch((err) => {
-//         console.error("Delete failed:", err);
-//         alert("An error occurred while deleting the order.");
-//       });
-//   }
-// });
 document.addEventListener("click", (event) => {
   const target = event.target;
 
@@ -336,60 +296,123 @@ document.addEventListener("click", (event) => {
   }
 });
 
+document.addEventListener("click", (event) => {
+  const target = event.target;
 
+  // Handle Reorder Button
+  if (target.classList.contains("reorder")) {
+    const orderId = target.dataset.id; // Order ID
+    const flower = target.dataset.flower; // Flower name
+    const quantity = parseInt(target.dataset.quantity);
+
+    if (!orderId || !flower || isNaN(quantity)) {
+      console.error("Invalid data attributes for reorder operation.");
+      return;
+    }
+
+    console.log(`Reordering: ID=${orderId}, Flower=${flower}, Quantity=${quantity}`);
+
+    // Delete the existing order
+    fetch(`http://127.0.0.1:8000/orders/${orderId}/`, { method: "DELETE" })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to delete the order.");
+
+        // Remove order ID from localStorage
+        let orderIds = JSON.parse(localStorage.getItem("order_ids")) || [];
+        orderIds = orderIds.filter((id) => id !== parseInt(orderId));
+        localStorage.setItem("order_ids", JSON.stringify(orderIds));
+
+        console.log("Order deleted, fetching flower list...");
+
+        // Fetch flower details
+        return fetch("http://127.0.0.1:8000/flowers/list/");
+      })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch flower list.");
+        return res.json();
+      })
+      .then((response) => {
+        // Ensure response contains a list (array) of flowers
+        const flowers = Array.isArray(response) ? response : response.results || [];
+        
+        // Find flower by title
+        const filteredFlower = flowers.find((f) => f.title === flower);
+
+        if (filteredFlower) {
+          const flower_id = filteredFlower.id;
+          console.log(`Flower ID: ${flower_id}`);
+
+          // Redirect to details page with query param
+          window.location.href = `http://127.0.0.1:5501/docDetails.html?flowerId=${flower_id}`;
+
+          // Open modal programmatically after redirect (modal trigger example)
+          // setTimeout(() => {
+          //   const orderModal = new bootstrap.Modal(document.getElementById("exampleModal1"));
+          //   orderModal.show();
+          // }, 1000); // Delay to ensure the page loads
+        } else {
+          throw new Error("Flower not found in the list.");
+        }
+      })
+      .catch((err) => {
+        console.error("Reorder failed:", err);
+        alert("An error occurred while reordering.");
+      });
+  }
+});
 
 // Call the function to load the filtered orders into the table
 loadorder();
 
 
+ 
+// const updateAvailable = (flower, quantity) => {
+//   console.log(`Updating availability for Flower="${flower}", Quantity=${quantity}`);
 
-const updateAvailable = (flower, quantity) => {
-  console.log(`Updating availability for Flower="${flower}", Quantity=${quantity}`);
+//   // Fetch the list of flowers
+//   fetch("http://127.0.0.1:8000/flowers/list/")
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw new Error("Failed to fetch flowers list.");
+//       }
+//       return res.json();
+//     })
+//     .then((flowers) => {
+//       // Find the flower based on its title
+//       const filteredFlower = flowers.find((f) => f.title === flower);
 
-  // Fetch the list of flowers
-  fetch("http://127.0.0.1:8000/flowers/list/")
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error("Failed to fetch flowers list.");
-      }
-      return res.json();
-    })
-    .then((flowers) => {
-      // Find the flower based on its title
-      const filteredFlower = flowers.find((f) => f.title === flower);
+//       if (filteredFlower) {
+//         const flower_id = filteredFlower.id;
+//         console.log(`Flower ID for "${flower}":`, flower_id);
 
-      if (filteredFlower) {
-        const flower_id = filteredFlower.id;
-        console.log(`Flower ID for "${flower}":`, flower_id);
+//         // Calculate the updated quantity
+//         const updatedQuantity = filteredFlower.available + quantity;
+//         console.log(`Updated quantity for "${flower}":`, updatedQuantity);
 
-        // Calculate the updated quantity
-        const updatedQuantity = filteredFlower.available + quantity;
-        console.log(`Updated quantity for "${flower}":`, updatedQuantity);
-
-        // Update the flower's available quantity
-        return fetch(`http://127.0.0.1:8000/flowers/list/${flower_id}/`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ available: updatedQuantity }), // Send only the field to update
-        });
-      } else {
-        throw new Error(`Flower "${flower}" not found in the list.`);
-      }
-    })
-    .then((res) => {
-      if (res.ok) {
-        console.log(`Flower quantity for "${flower}" updated successfully!`);
-      } else {
-        console.error(`Failed to update quantity for "${flower}".`);
-        return res.text().then((text) => {
-          console.error("Error response:", text); // Log server response for debugging
-        });
-      }
-    })
-    .catch((err) => console.error("Error:", err.message));
-};
+//         // Update the flower's available quantity
+//         return fetch(`http://127.0.0.1:8000/flowers/list/${flower_id}/`, {
+//           method: "PATCH",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({ available: updatedQuantity }), // Send only the field to update
+//         });
+//       } else {
+//         throw new Error(`Flower "${flower}" not found in the list.`);
+//       }
+//     })
+//     .then((res) => {
+//       if (res.ok) {
+//         console.log(`Flower quantity for "${flower}" updated successfully!`);
+//       } else {
+//         console.error(`Failed to update quantity for "${flower}".`);
+//         return res.text().then((text) => {
+//           console.error("Error response:", text); // Log server response for debugging
+//         });
+//       }
+//     })
+//     .catch((err) => console.error("Error:", err.message));
+// };
 
 
 // const buyer_id = localStorage.getItem("buyer_id");
@@ -451,119 +474,75 @@ const updateAvailable = (flower, quantity) => {
 
 
 
-  const openEditModal = (orderId, flower, oldQuantity) => {
-    const modal = document.getElementById("edit-modal");
-    const orderIdInput = document.getElementById("edit-order-id");
-    const quantityInput = document.getElementById("edit-quantity");
-  
-    // Set existing values in the modal
-    orderIdInput.value = orderId;
-    quantityInput.value = oldQuantity;
-  
-    // Show the modal
-    modal.style.display = "block";
-  
-    // Handle form submission
-    const form = document.getElementById("edit-order-form");
-    form.onsubmit = (e) => {
-      e.preventDefault();
-  
-      const newQuantity = parseInt(quantityInput.value);
-      const quantityChange = newQuantity - oldQuantity;
-  
-      // Update the order quantity
-      fetch(`http://127.0.0.1:8000/orders/${orderId}/`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ quantity: newQuantity }),
-      })
-        .then((res) => {
-          if (res.ok) {
-            alert("Order updated successfully!");
-  
-            // Adjust flower quantity
-            updateFlowerQuantity(flower, -quantityChange);
-  
-            // Reload the orders table and close the modal
-            loadorder();
-            modal.style.display = "none";
-          } else {
-            alert("Failed to update the order.");
-          }
-        })
-        .catch((err) => console.error("Update failed:", err));
-    };
-  };
-  
 
-//   let editingOrderId = null; // To keep track of whether editing or adding
 
-// // Function to open the modal for editing
-// const editOrder = (order) => {
-//   editingOrderId = order.id; // Save the order ID being edited
 
-//   // Populate the modal fields with the existing order data
-//   document.getElementById("quantity").value = order.quantity;
-//   document.getElementById("price").value = order.price;
-//   document.getElementById("total_price").value = order.total_price;
-//   document.getElementById("delivery_address").value = order.delivery_address;
-//   document.getElementById("mobile_no").value = order.mobile_no;
-//   document.getElementById("delivery_date").value = order.delivery_date;
-//   document.getElementById("order_types").value = order.order_types;
+// const submitOrderForm1 = (event) => {
+//   event.preventDefault(); // Prevent the form from reloading the page
 
-//   // Change the button text to "Update Order"
-//   document.getElementById("submitOrder").innerText = "Update Order";
+//   const flowerId = localStorage.getItem("flower_id");
+//   const buyerId = localStorage.getItem("buyer_id");
 
-//   // Open the modal
-//   const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
-//   modal.show();
-// };
+//   if (!flowerId || !buyerId) {
+//     alert("Missing flower or buyer information.");
+//     return;
+//   }
 
-// // Function to handle form submission (for both adding and editing)
-// const submitOrderForm = (event) => {
-//   event.preventDefault();
+//   const quantity = document.getElementById("quantity").value;
+//   const deliveryAddress = document.getElementById("delivery_address").value;
+//   const mobileNo = document.getElementById("mobile_no").value;
+//   const deliveryDate = document.getElementById("delivery_date").value;
+//   const orderType = document.getElementById("order_types").value;
+//   // Calculate the total price
+//   const totalPrice = flowerPrice * quantity;
 
 //   const orderData = {
-//     quantity: document.getElementById("quantity").value,
-//     price: document.getElementById("price").value,
-//     total_price: document.getElementById("total_price").value,
-//     delivery_address: document.getElementById("delivery_address").value,
-//     mobile_no: document.getElementById("mobile_no").value,
-//     delivery_date: document.getElementById("delivery_date").value,
-//     order_types: document.getElementById("order_types").value,
+//     flower_id: flowerId,
+//     buyer_id: buyerId,
+//     quantity: parseInt(quantity),
+//     price: flowerPrice, // Add the flower price
+//     total_price: totalPrice, // Add the total price
+//     delivery_address: deliveryAddress,
+//     mobile_no: mobileNo,
+//     delivery_date: deliveryDate,
+//     order_types: orderType,
+//     order_status: "Pending",
+//     cancel: false,
 //   };
 
-//   if (editingOrderId) {
-//     // Update the existing order
-//     fetch(`http://127.0.0.1:8000/orders/${editingOrderId}/`, {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(orderData),
+//   console.log("Order Data:", orderData);
+
+//   // Send the data to the API
+//   fetch(`http://127.0.0.1:8000/orders/?flower_id=${flowerId}&buyer_id=${buyerId}`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(orderData),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Failed to place order.");
+//       }
+//       return response.json();
 //     })
-//       .then((res) => res.json())
-//       .then((updatedOrder) => {
-//         console.log("Order updated:", updatedOrder);
-//         editingOrderId = null; // Reset after editing
-//         location.reload(); // Reload to reflect changes
-//       })
-//       .catch((err) => console.error("Failed to update order:", err));
-//   } else {
-//     // Add a new order
-//     fetch("http://127.0.0.1:8000/orders/", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(orderData),
+//     .then((data) => {
+//       // document.getElementById("exampleModal").style.display = "none"; // Close modal
+//       console.log("Order Response:", data);
+
+
+//       const orderId = data.id; // Assuming the response contains an `id` field for the order
+//       let orderIds = JSON.parse(localStorage.getItem("order_ids")) || []; // Get the existing array or initialize a new one
+//       orderIds.push(orderId); // Add the new order_id
+//       localStorage.setItem("order_ids", JSON.stringify(orderIds)); // Save back to localStorage
+//       // Close the modal
+//       const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
+//       modal.hide();
+//       alert("Order placed successfully!");
+//       // location.reload();
+//       window.location.href = `http://127.0.0.1:5501/cart.html`;
 //     })
-//       .then((res) => res.json())
-//       .then((newOrder) => {
-//         console.log("New order created:", newOrder);
-//         location.reload(); // Reload to reflect changes
-//       })
-//       .catch((err) => console.error("Failed to create order:", err));
-//   }
+    
 // };
+
 
 
 

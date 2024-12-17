@@ -272,6 +272,9 @@ const loadorder = () => {
 
       const div = document.createElement("div");
       div.innerHTML = `<h4>Total amount + 15% VAT: ${totalWithVAT.toFixed(2)} $</h4>`;
+      if (totalWithVAT !== 0) {
+        localStorage.setItem("totalWithVAT", totalWithVAT);
+      }
       parent2.appendChild(div);
     })
     .catch((err) => {
