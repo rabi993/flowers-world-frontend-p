@@ -39,29 +39,29 @@ const displayDetails = (doctor) => {
   </div>
   <div class="doc-info">
     <h4>${doctor?.title}</h4>
-              ${doctor?.category?.map((item) => {
-                return `<button>${item}</button>`;
-              })}
-              <h6>Available : ${doctor?.available}</h6>
-              <p>
-              ${doctor?.content}
-              </p>
-              
-              <h6>Price : ${doctor?.price}</h6>
-              <p>
-              ${doctor?.color?.map((item) => {
-                return `<button>${item}</button>`;
-              })}
-              </p>
+    ${doctor?.category?.map((item) => {
+      return `<button>${item}</button>`;
+    })}
+    <h6>Available : ${doctor?.available}</h6>
+    <p>
+    ${doctor?.content}
+    </p>
+    
+    <h6>Price : ${doctor?.price}</h6>
+    <p>
+    ${doctor?.color?.map((item) => {
+      return `<button>${item}</button>`;
+    })}
+    </p>
     <button
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
     data-bs-target="#exampleModal"
     id="buyNowBtn" onclick="openOrderModal()"
-  >
-   Buy Now
-  </button>
+    >
+    Buy Now
+    </button>
   </div>
     `;
   parent.appendChild(div);
