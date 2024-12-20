@@ -31,6 +31,12 @@ const fetchFlowers = () => {
               <td>${flower.color.join(", ")}</td>
               <td>${flower.available}</td>
               <td>${flower.price.toFixed(2)}</td>
+              <td>
+                <div class ="d-flex ">
+                  <button class="btn btn-info" onclick='handleEditFlower(${JSON.stringify(flower)})'>Edit</button>
+                  <button class="btn btn-danger mx-3" onclick='handleDeleteFlower(${flower.id})'>Delete</button>
+                </div>
+              </td>
             `;
             flowersList.appendChild(row);
           });
@@ -146,6 +152,148 @@ const fetchFlowers = () => {
   
   // Initial fetch to populate the table
   fetchFlowers();
+
+  // Handle Edit Flower
+// const handleEditFlower = (flower) => {
+//   // Populate form fields
+  
+//   document.getElementById("flowerTitle").value = flower.title;
+//   document.getElementById("flowerContent").value = flower.content;
+//   document.getElementById("flowerAvailable").value = flower.available;
+//   document.getElementById("flowerPrice").value = flower.price;
+
+//   // Set categories and colors
+//   const categorySelect = document.getElementById("flowerCategory");
+//   Array.from(categorySelect.options).forEach(option => {
+//     option.selected = flower.category.includes(option.value);
+//   });
+
+//   const colorSelect = document.getElementById("flowerColor");
+//   Array.from(colorSelect.options).forEach(option => {
+//     option.selected = flower.color.includes(option.value);
+//   });
+
+//   // Attach event for saving the updated flower
+//   const flowerForm = document.getElementById("flower_form");
+//   flowerForm.onsubmit = (event) => {
+//     event.preventDefault();
+//     const formData = new FormData(flowerForm);
+
+//     fetch(`http://127.0.0.1:8000/flowers/list/${flower.id}/`, {
+//       method: "PATCH",
+//       body: formData,
+//     })
+//       .then(response => {
+//         if (!response.ok) throw new Error("Failed to update flower.");
+//         return response.status === 204 ? {} : response.json();
+//       })
+//       .then(() => {
+//         alert("Flower updated successfully!");
+//         fetchFlowers(); // Refresh the table
+//       })
+//       .catch(async (error) => {
+//         const errorMessage = error.message;
+//         console.error("Error updating flower:", errorMessage);
+//         alert(`Error updating flower: ${errorMessage}`);
+//       });
+//   };
+// };
+
+const handleEditFlower = (flower) => {
+  // Populate form fields
+  document.getElementById("flowerTitle").value = flower.title;
+  document.getElementById("flowerContent").value = flower.content;
+  document.getElementById("flowerAvailable").value = flower.available;
+  document.getElementById("flowerPrice").value = flower.price;
+
+  // Set categories and colors
+  const categorySelect = document.getElementById("flowerCategory");
+  Array.from(categorySelect.options).forEach(option => {
+    option.selected = flower.category.includes(option.value);
+  });
+
+  const colorSelect = document.getElementById("flowerColor");
+  Array.from(colorSelect.options).forEach(option => {
+    option.selected = flower.color.includes(option.value);
+  });
+
+  // Attach event for saving the updated flower
+  const flowerForm = document.getElementById("flower_form");
+  flowerForm.onsubmit = (event) => {
+    event.preventDefault();
+
+    // Prepare FormData to include the image and other fields
+    const formData = new FormData();
+    formData.append("title", flowerForm.elements["flowerTitle"].value);
+    formData.append("content", flowerForm.elements["flowerContent"].value);
+    formData.append("available", flowerForm.elements["flowerAvailable"].value);
+    formData.append("price", flowerForm.elements["flowerPrice"].value);
+
+    // Add selected categories
+    Array.from(categorySelect.selectedOptions).forEach(option => {
+      formData.append("category", option.value);
+    });
+
+    // Add selected colors
+    Array.from(colorSelect.selectedOptions).forEach(option => {
+      formData.append("color", option.value);
+    });
+
+    // Add image if a file is selected
+    const fileInput = document.getElementById("flowerImage");
+    if (fileInput.files.length > 0) {
+      formData.append("image", fileInput.files[0]);
+    }
+
+    // Log the form data for debugging
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    // Make the API call to update the flower
+    fetch(`http://127.0.0.1:8000/flowers/list/${flower.id}/`, {
+      method: "PUT", // Use PATCH if your backend supports partial updates
+      body: formData,
+    })
+      .then(async response => {
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+          const responseBody = await response.json();
+          console.log("Response body:", responseBody);
+          throw new Error(responseBody.detail || "Failed to update flower.");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Updated flower data:", data);
+        alert("Flower updated successfully!");
+        fetchFlowers(); // Refresh the flower list
+      })
+      .catch(error => {
+        console.error("Error updating flower:", error.message);
+        alert(`Error updating flower: ${error.message}`);
+      });
+  };
+};
+
+
+
+  // Handle Delete Flower
+  const handleDeleteFlower = (id) => {
+    if (confirm("Are you sure you want to delete this flower?")) {
+      fetch(`http://127.0.0.1:8000/flowers/list/${id}/`, {
+        method: "DELETE",
+      })
+        .then(response => {
+          if (!response.ok) throw new Error("Failed to delete flower.");
+          alert("Flower deleted successfully!");
+          fetchFlowers(); // Refresh the table
+        })
+        .catch(error => {
+          console.error("Error deleting flower:", error.message);
+        });
+    }
+  };
 
   
 
