@@ -11,6 +11,23 @@ nav{
     background-color:aqua;
 
 }
+.nav_text a{
+ font-weight: 600;
+ font-size: large;
+ text-decoration: none;
+ color: rgb(8, 8, 8);
+ 
+}
+.nav_text a:hover{
+    font-weight: 700;
+    font-size: x-large;
+    color: gray;
+    
+   }
+#logo_img{
+    width: 50px;
+    height: 50px;
+}
 .menu{
     font-size: 20px;
 }
@@ -37,8 +54,10 @@ nav{
     /* padding: 30px; */
 }
 .bn-img{
-    width: 325px;
-    margin-top:-50px;
+    width: 650px;
+    height: 400px;
+    margin-right: 20px;
+    border-radius: 20px;
 }
 .service-container{
     width: 1200px;
