@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Change Password</title>
+    <title>Profile</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -57,56 +57,64 @@
            
         </div>
       </nav>
-    
-      <div class="container mt-5">
-        <div class="card mx-auto p-4 shadow-lg" style="width: 24rem;">
-            <h5 class="card-title text-center">Change Password</h5>
-            <form id="change-password-form">
-                <div class="mb-3">
-                    <label for="old-password" class="form-label">Old Password</label>
-                    <input type="password" id="old-password" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="new-password" class="form-label">New Password</label>
-                    <input type="password" id="new-password" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Update Password</button>
-            </form>
-            <div id="error-message" class="mt-3 text-danger d-none"></div>
-            <div id="success-message" class="mt-3 text-success d-none"></div>
-        </div>
-    </div>
+      <main>
+        <div class="d-flex ">
+          <div class="col-md-1 bg-secondary px-2 ">
+            <div>
+                <a class="btn btn-info border rounded mt-1 mb-1 dash-btn" href="addorder.html">Order</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="addcategory.html">Category</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="addcolor.html">Color</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="AddFlowers.html">Flowers</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="AddUsers.html">Users</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="AddBuyers.html">Buyers</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="AddReviews.html">Reviews</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="Addserviceadmin.html">Services</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="addcontactus.html">Contact Us</a>
+            </div>
+            <div>
+                <a class="btn btn-info border rounded mb-1 dash-btn" href="profileadmin.html">Profile</a>
+            </div>
+            
+            
+            
 
-    
-    
+
+        </div>
+            <div class="col-md-11">
+                <!-- dashboard details -->
+                
+          
+                <div class="container my-5">
+                  <div class="d-flex justify-content-center gap-3 my-3">
+                    <button class="btn btn-info border rounded p-2">Change Password</button>
+                    <button class="btn btn-secondary border rounded p-2"><a target="_blank" class="" href="updateProfile.html">Update Your Profile</a></button>
+                    
+                  </div>
+                  <div id="user-card-container" class="d-flex justify-content-center"></div>
+                </div>
+                
+
+            </div>
+        </div>
       
     </main>
-    <footer class="p-5">
-      <div class="container w-75 m-auto row p-5">
-        <div class="col-md-6">
-          <p><small>Copyright © Smartcare. All Rights Reserved</small></p>
-          <h5>Follow US</h5>
-          <div class="icons">
-            <img class="icon" src="./Images/LinkedIn.png" alt="" />
-            <img class="icon" src="./Images/YouTube.png" alt="" />
-            <img class="icon" src="./Images/LinkedIn.png" alt="" />
-          </div>
-        </div>
-        <div class="col-md-3">
-          <h5>Company</h5>
-          <li>ABout</li>
-          <li>Contact us</li>
-          <li>Culture</li>
-          <li>Blog</li>
-        </div>
-        <div class="col-md-3">
-          <h5>Company</h5>
-          <li>ABout</li>
-          <li>Contact us</li>
-          <li>Culture</li>
-          <li>Blog</li>
-        </div>
-      </div>
+    <footer class="">
       <hr />
       <p class="text-center mt-3">
         <small>Copyright © Smartcare. All Rights Reserved</small>
@@ -114,15 +122,12 @@
     </footer>
 
     <!-- add script file  -->
-     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
 
     <script src="./app.js"></script>
     <script src="./docDetails.js"></script>
     <script src="./logout.js"></script>
-    <script src="./profile.js"></script>
-    <script src="./updateProfile.js"></script>
-    <script src="./changepass.js"></script>
+    <script src="./profileadmin.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script

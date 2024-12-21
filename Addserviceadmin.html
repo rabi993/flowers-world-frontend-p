@@ -22,10 +22,10 @@
     <header>
       <nav class="d-flex justify-content-around align-items-center p-4">
         <div class="logo-container d-flex align-items-center gap-2">
-          <img src="./Images/stethoscope 1.png" alt="" />
-          <h3>SmartCare</h3>
+          <img id="logo_img" src="./Images/flogo.png" alt="" />
+          <h2 style="padding-top: 10px;">Flower's World</h2>
         </div>
-        <div class="menu-container d-flex gap-3">
+        <div class="menu-container d-flex gap-3 nav_text">
           <li class="menu"><a href="index.html">Home</a></li>
           <li class="menu"><a href="service.html">Services</a></li>
           <li class="menu"><a href="contactus.html">Contact us</a></li>
@@ -36,40 +36,9 @@
           <li class="menu"><a href="registration.html">Registration</a></li>
           
           <li class="menu" onclick="handlelogOut()"><a >Logout</a></li>
+          <li class="menu"><a href="profile.html">Profile</a></li>
   
-          <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              profile
-            </button>
-            <ul
-              class="dropdown-menu dropdown-menu-dark"
-              aria-labelledby="dropdownMenuButton2"
-            >
-              <li>
-                <a class="dropdown-item active" href="userDetails.html"
-                  >profile</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="allAppointments.html"
-                  >all Appointment</a
-                >
-              </li>
-              <!-- <li onclick="handlelogOut()">
-                <a class="dropdown-item">logout</a>
-              </li> -->
-              <li>
-                <a id="logout-btn" class="logout">Logout</a>
-              </li>
-              
-            </ul>
-          </div> 
+           
         </div>
       </nav>
       
@@ -79,7 +48,47 @@
       
     </header>
     <main>
-      <!-- Add Service Section -->
+      <div class="d-flex ">
+          <div class="col-md-1 bg-secondary px-2 ">
+          <div>
+              <a class="btn btn-info border rounded mt-1 mb-1 dash-btn" href="addorder.html">Order</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="addcategory.html">Category</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="addcolor.html">Color</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="AddFlowers.html">Flowers</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="AddUsers.html">Users</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="AddBuyers.html">Buyers</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="AddReviews.html">Reviews</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="Addserviceadmin.html">Services</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="addcontactus.html">Contact Us</a>
+          </div>
+          <div>
+              <a class="btn btn-info border rounded mb-1 dash-btn" href="profileadmin.html">Profile</a>
+          </div>
+          
+          
+          
+
+
+          </div>
+          <div class="col-md-11">
+              <!-- button details -->
+               <!-- Add Service Section -->
       <div class="container my-5">
         <h3>Service List</h3>
         <div class="container">
@@ -131,43 +140,31 @@
           <button type="submit" class="btn btn-primary">ADD Service</button>
         </form>
       </div>
+
+
+              
+
+
+          </div>
+      </div>
+
+    
+    
+  </main>
+  <footer class="">
+    <hr />
+    <p class="text-center mt-3">
+      <small>Copyright © Smartcare. All Rights Reserved</small>
+    </p>
+  </footer>
+    
+      
       
   
      
 
     
-    </main>
-    <footer class="p-5">
-      <div class="container w-75 m-auto row p-5">
-        <div class="col-md-6">
-          <p><small>Copyright © Smartcare. All Rights Reserved</small></p>
-          <h5>Follow US</h5>
-          <div class="icons">
-            <img class="icon" src="./Images/LinkedIn.png" alt="" />
-            <img class="icon" src="./Images/YouTube.png" alt="" />
-            <img class="icon" src="./Images/LinkedIn.png" alt="" />
-          </div>
-        </div>
-        <div class="col-md-3">
-          <h5>Company</h5>
-          <li>ABout</li>
-          <li>Contact us</li>
-          <li>Culture</li>
-          <li>Blog</li>
-        </div>
-        <div class="col-md-3">
-          <h5>Company</h5>
-          <li>ABout</li>
-          <li>Contact us</li>
-          <li>Culture</li>
-          <li>Blog</li>
-        </div>
-      </div>
-      <hr />
-      <p class="text-center mt-3">
-        <small>Copyright © Smartcare. All Rights Reserved</small>
-      </p>
-    </footer>
+    
 
     <!-- add script file  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>

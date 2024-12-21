@@ -19,6 +19,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav class="d-flex justify-content-around align-items-center p-4">
+      <div class="logo-container d-flex align-items-center gap-2">
+        <img id="logo_img" src="./Images/flogo.png" alt="" />
+        <h2 style="padding-top: 10px;">Flower's World</h2>
+      </div>
+      <div class="menu-container d-flex gap-3 nav_text">
+        <li class="menu"><a href="index.html">Home</a></li>
+        <li class="menu"><a href="service.html">Services</a></li>
+        <li class="menu"><a href="contactus.html">Contact us</a></li>
+        <li class="menu"><a href="cart.html">Cart</a></li>
+        
+        <li class="menu"><a href="order.html">All_Order</a></li>
+        <li class="menu"><a href="login.html">Login</a></li>
+        <li class="menu"><a href="registration.html">Registration</a></li>
+        
+        <li class="menu" onclick="handlelogOut()"><a >Logout</a></li>
+        <li class="menu"><a href="profile.html">Profile</a></li>
+
+         
+      </div>
+    </nav>
     <div id="pdf-container" class="pdf-container text-center">
       <h1 class="text-info text-center  my-2">SMART CARE</h1>
     </div>
