@@ -20,7 +20,7 @@ nav{
 }
 .nav_text a:hover{
     font-weight: 700;
-    font-size: x-large;
+    /* font-size: x-large; */
     color: gray;
     
    }
@@ -77,17 +77,17 @@ nav{
     padding: 30px;
 }
 .doc-card{
-    width: 400px;
+    width: 250px;
 
-    height: 500px;
+    height: 400px;
     box-shadow: 4px 4px 8px gray;
     border-radius: 10px;
     text-align:center;
     padding: 5px;
 }
 .doc-img{
-    width: 350px;
-    height: 250px;
+    width: 200px;
+    height: 130px;
     border-radius: 50px;
 }
 #search{
@@ -202,3 +202,4 @@ border-radius:100px;
     
     
 }
+

@@ -13,6 +13,9 @@ const fetchReviews = () => {
                     <td>${review.body}</td>
                     <td>${review.rating}</td>
                     <td>${new Date(review.created).toLocaleString()}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteReview(${review.id})">Delete</button>
+                    </td>
                 `;
                 reviewsList.appendChild(row);
             });
@@ -64,3 +67,23 @@ const handleAddReview = (event) => {
 
 // Initialize: Fetch reviews
 fetchReviews();
+
+// Handle delete review
+const deleteReview = (reviewId) => {
+    if (!confirm("Are you sure you want to delete this review?")) return;
+
+    fetch(`http://127.0.0.1:8000/flowers/reviews/${reviewId}/`, {
+        method: "DELETE",
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to delete review");
+            }
+            alert("Review deleted successfully!");
+            fetchReviews(); // Refresh the reviews list
+        })
+        .catch((error) => {
+            console.error("Error deleting review:", error);
+            alert("Failed to delete review.");
+        });
+};

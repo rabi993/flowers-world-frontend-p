@@ -20,6 +20,9 @@ const fetchContactUs = () => {
               <td>${contact.name}</td>
               <td>${contact.phone}</td>
               <td>${contact.content}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteContactUs(${contact.id})">Delete</button>
+              </td>
             `;
             contactUsList.appendChild(row);
           });
@@ -77,3 +80,23 @@ const fetchContactUs = () => {
   // Initial fetch to populate the table
   fetchContactUs();
   
+
+  // Handle delete Contact Us entry
+const deleteContactUs = (contactId) => {
+  if (!confirm("Are you sure you want to delete this entry?")) return;
+
+  fetch(`http://127.0.0.1:8000/contact_us/${contactId}/`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to delete Contact Us entry");
+      }
+      alert("Contact Us entry deleted successfully!");
+      fetchContactUs(); // Refresh the table
+    })
+    .catch((error) => {
+      console.error("Error deleting Contact Us entry:", error);
+      alert("Failed to delete Contact Us entry.");
+    });
+};

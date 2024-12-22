@@ -57,7 +57,7 @@
               <a class="btn btn-info border rounded mt-1 mb-1 dash-btn" href="addorder.html">Order</a>
           </div>
           <div>
-              <a class="btn btn-info border rounded mb-1 dash-btn" href="addcategory.html">Category</a>
+              <a class="btn btn-secondary border rounded mb-1 dash-btn" href="addcategory.html">Category</a>
           </div>
           <div>
               <a class="btn btn-info border rounded mb-1 dash-btn" href="addcolor.html">Color</a>
@@ -92,25 +92,34 @@
           <div class="col-md-11">
               <!-- button details -->
               <div class=" container">
-                <h3>Category List</h3>
-                <div id="category-list" class="gap-3">
-                    
-                </div> <!-- Changed to <ul> for a better structure -->
-              
-                <h3>ADD Category</h3>
-                <form id="category_form" onsubmit="handleAddCategory(event)">
-                  <div class="mb-3">
-                    <label for="categoryBody" class="form-label">Category</label>
-                    <textarea
-                      id="categoryBody"
-                      class="form-control"
-                      rows="1"
-                      placeholder="Write Flower Category name"
-                      required
-                    ></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary">ADD Category</button>
-                </form>
+                <div class="container mt-4">
+                  <h2>Category Management</h2>
+                  <form id="add-category-form" onsubmit="handleAddCategory(event)">
+                    <div class="form-group">
+                      <label for="categoryBody">Add New Category:</label>
+                      <input
+                        type="text"
+                        id="categoryBody"
+                        class="form-control"
+                        placeholder="Enter category name"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Add Category</button>
+                  </form>
+                
+                  <table class="table table-bordered table-striped mt-4">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="category-table-body">
+                      <!-- Categories will be dynamically added here -->
+                    </tbody>
+                  </table>
+                </div>
+                
               </div>
 
 

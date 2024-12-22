@@ -75,7 +75,7 @@
               <a class="btn btn-info border rounded mb-1 dash-btn" href="AddReviews.html">Reviews</a>
           </div>
           <div>
-              <a class="btn btn-info border rounded mb-1 dash-btn" href="Addserviceadmin.html">Services</a>
+              <a class="btn btn-secondary border rounded mb-1 dash-btn" href="Addserviceadmin.html">Services</a>
           </div>
           <div>
               <a class="btn btn-info border rounded mb-1 dash-btn" href="addcontactus.html">Contact Us</a>
@@ -93,22 +93,22 @@
               <!-- button details -->
                <!-- Add Service Section -->
       <div class="container my-5">
-        <h3>Service List</h3>
-        <div class="container">
-          <!-- <h3>Service List</h3> -->
+        <div class="container mt-4">
+          <h3>Service List</h3>
           <table id="service-table" class="table table-striped">
             <thead>
               <tr>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="service-list"></tbody>
           </table>
         </div>
-    
-        <h3 class="mt-5">ADD Service</h3>
+        
+        <!-- <h3 class="mt-5">Add Service</h3>
         <form id="service_form" onsubmit="handleAddService(event)">
           <div class="mb-3">
             <label for="serviceName" class="form-label">Service Name</label>
@@ -118,7 +118,7 @@
               class="form-control"
               placeholder="Write service name"
               required
-            >
+            />
           </div>
           <div class="mb-3">
             <label for="serviceDescription" class="form-label">Service Description</label>
@@ -138,10 +138,52 @@
               class="form-control"
               accept="image/*"
               required
-            >
+            />
           </div>
-          <button type="submit" class="btn btn-primary">ADD Service</button>
-        </form>
+          <button type="submit" class="btn btn-primary">Add Service</button>
+        </form> -->
+        <h3 id="form-title">Add Service</h3>
+<form id="service_form" onsubmit="handleAddService(event)">
+  <input type="hidden" id="serviceId" /> <!-- Hidden field for service ID -->
+
+  <div class="mb-3">
+    <label for="serviceName" class="form-label">Service Name</label>
+    <input
+      type="text"
+      id="serviceName"
+      class="form-control"
+      placeholder="Write service name"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="serviceDescription" class="form-label">Service Description</label>
+    <textarea
+      id="serviceDescription"
+      class="form-control"
+      rows="3"
+      placeholder="Write service description"
+      required
+    ></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="serviceImage" class="form-label">Service Image</label>
+    <input
+      type="file"
+      id="serviceImage"
+      class="form-control"
+      accept="image/*"
+      required
+    />
+    <img id="imagePreview" src="" alt="Image Preview" style="width: 100px; height: 100px;" />
+  </div>
+  <button type="submit" class="btn btn-primary" id="addServiceButton">Add Service</button>
+</form>
+
+        
+
+
+        
       </div>
 
 

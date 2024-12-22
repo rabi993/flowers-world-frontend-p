@@ -60,7 +60,7 @@
               <a class="btn btn-info border rounded mb-1 dash-btn" href="addcategory.html">Category</a>
           </div>
           <div>
-              <a class="btn btn-info border rounded mb-1 dash-btn" href="addcolor.html">Color</a>
+              <a class="btn btn-secondary border rounded mb-1 dash-btn" href="addcolor.html">Color</a>
           </div>
           <div>
               <a class="btn btn-info border rounded mb-1 dash-btn" href="AddFlowers.html">Flowers</a>
@@ -93,25 +93,34 @@
               <!-- button details -->
                <!-- Add Color Section -->
       <div class=" container">
-        <h3>Color List</h3>
-        <div id="color-list" class="gap-3">
-            
-        </div> <!-- Changed to <ul> for a better structure -->
-      
-        <h3>ADD Color</h3>
-        <form id="color_form" onsubmit="handleAddColor(event)">
-          <div class="mb-3">
-            <label for="colorBody" class="form-label">Color</label>
-            <textarea
-              id="colorBody"
-              class="form-control"
-              rows="1"
-              placeholder="Write Flower color name"
-              required
-            ></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">ADD Color</button>
-        </form>
+        <div class="container mt-4">
+          <h2>Color Management</h2>
+          <form id="add-color-form" onsubmit="handleAddColor(event)">
+            <div class="form-group">
+              <label for="colorBody">Add New Color:</label>
+              <input
+                type="text"
+                id="colorBody"
+                class="form-control"
+                placeholder="Enter color name"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Add Color</button>
+          </form>
+        
+          <table class="table table-bordered table-striped mt-4">
+            <thead>
+              <tr>
+                <th>Color</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="color-table-body">
+              <!-- Colors will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+        
       </div>
 
 
