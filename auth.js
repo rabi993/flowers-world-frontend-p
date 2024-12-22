@@ -155,6 +155,7 @@ const handleLogin = (event) => {
               window.location.href = "adminPanel.html";
             } else {
               window.location.href = "index.html";
+              
             }
           })
           .catch((error) => {

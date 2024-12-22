@@ -32,11 +32,15 @@
         <li class="menu"><a href="cart.html">Cart</a></li>
         
         <li class="menu"><a href="order.html">All_Order</a></li>
-        <li class="menu"><a href="login.html">Login</a></li>
+        <!-- <li class="menu"><a href="login.html">Login</a></li>
         <li class="menu"><a href="registration.html">Registration</a></li>
         
         <li class="menu" onclick="handlelogOut()"><a >Logout</a></li>
-        <li class="menu"><a href="profile.html">Profile</a></li>
+        <li class="menu"><a href="profile.html">Profile</a></li> -->
+        <li class="menu login-menu"><a href="login.html">Login</a></li>
+        <li class="menu registration-menu"><a href="registration.html">Registration</a></li>
+        <li class="menu logout-menu d-none" onclick="handlelogOut()"><a href="#">Logout</a></li>
+        <li class="menu profile-menu d-none"><a href="profile.html">Profile</a></li>
 
          
       </div>
@@ -46,13 +50,12 @@
     <!-- banner contianer  -->
 
     <div class="banner-container">
-      <h3>Iam MD GIAS UDDIN</h3>
       <div class="banner">
         <div class="banner-left">
           <h1>
             Providing Quality
             <br />
-            Healthcare
+            Flowers World
           </h1>
           <p class="w-50 m-auto">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at
@@ -145,5 +148,6 @@
   loadServices();  
   </script>
   <script src="./logout.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html> 

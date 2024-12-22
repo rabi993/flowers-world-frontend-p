@@ -22,7 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Populate the card with user details
         card.innerHTML = `
           <div class="card-body">
-            <h5 class="card-title text-center">User Details</h5>
+            <h5 class="card-title text-center">${user.first_name || "N/A"} ${user.last_name || "N/A"}'s Profile</h5>
+            <div class="card-text w-50 m-auto">           
+              <img src="./Images/man.jpg" alt="Admin Image" class="img-fluid rounded mt-2" style="max-height: 200px;">                          
+            </div>
+            <h5 class="card-title text-center">Admin Details</h5>
             <p class="card-text"><strong>ID:</strong> ${user.id}</p>
             <p class="card-text"><strong>Username:</strong> ${user.username}</p>
             <p class="card-text"><strong>First Name:</strong> ${user.first_name || "N/A"}</p>

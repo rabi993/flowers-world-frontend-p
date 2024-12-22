@@ -32,11 +32,16 @@
         <li class="menu"><a href="cart.html">Cart</a></li>
         
         <li class="menu"><a href="order.html">All_Order</a></li>
-        <li class="menu"><a href="login.html">Login</a></li>
+
+        <li class="menu login-menu"><a href="login.html">Login</a></li>
+        <li class="menu registration-menu"><a href="registration.html">Registration</a></li>
+        <li class="menu logout-menu d-none" onclick="handlelogOut()"><a href="#">Logout</a></li>
+        <li class="menu profile-menu d-none"><a href="profile.html">Profile</a></li>
+        <!-- <li class="menu"><a href="login.html">Login</a></li>
         <li class="menu"><a href="registration.html">Registration</a></li>
         
         <li class="menu" onclick="handlelogOut()"><a >Logout</a></li>
-        <li class="menu"><a href="profile.html">Profile</a></li>
+        <li class="menu"><a href="profile.html">Profile</a></li> -->
 
          
       </div>
@@ -47,7 +52,7 @@
         <h1 class="title mt-5">Please Login</h1>
         <form action="">
 
-          <input value="rahim" id="login-username" type="text" class="input" placeholder="username" required />
+          <input value="rabiul" id="login-username" type="text" class="input" placeholder="username" required />
           <input id="login-password" type="password" class="input" placeholder="password" required value="abcd1234%" />
           
           <button onclick="handleLogin(event)" class="submit-btn">Login</button>
@@ -95,6 +100,7 @@
     <script src="./auth.js"></script>
     <script src="./docDetails.js"></script>
     <script src="./logout.js"></script>
+    <script src="./index.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"
       integrity="..."
