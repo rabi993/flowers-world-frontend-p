@@ -23,20 +23,20 @@
     <nav class="d-flex justify-content-around align-items-center p-4">
       <div class="logo-container d-flex align-items-center gap-2">
         <img id="logo_img" src="./Images/flogo.png" alt="" />
-        <h2 style="padding-top: 10px;">Flower's World</h2>
+        <a style="padding-top: 10px; text-decoration: none; color: rgb(4, 66, 66);"  href="adminPanel.html"><h2><b>Flower's World</b> Admin Dashboard</h2></a>
       </div>
       <div class="menu-container d-flex gap-3 nav_text">
-        <li class="menu"><a href="index.html">Home</a></li>
-        <li class="menu"><a href="service.html">Services</a></li>
-        <li class="menu"><a href="contactus.html">Contact us</a></li>
-        <li class="menu"><a href="cart.html">Cart</a></li>
+        <!-- <li class="menu"><a href="">Home</a></li>
+        <li class="menu"><a href="">Services</a></li>
+        <li class="menu"><a href="">Contact us</a></li>
+        <li class="menu"><a href="">Cart</a></li>
         
-        <li class="menu"><a href="order.html">All_Order</a></li>
-        <li class="menu"><a href="login.html">Login</a></li>
-        <li class="menu"><a href="registration.html">Registration</a></li>
-        
+        <li class="menu"><a href="">All_Order</a></li>
+        <li class="menu"><a href="">Login</a></li>
+        <li class="menu"><a href="">Registration</a></li>
+         -->
         <li class="menu" onclick="handlelogOut()"><a >Logout</a></li>
-        <li class="menu"><a href="profile.html">Profile</a></li>
+        <li class="menu"><a href="profileadmin.html">Profile</a></li>
 
         
       </div>
@@ -45,6 +45,9 @@
   <main>
     <div class="d-flex ">
         <div class="col-md-1 bg-secondary px-2 ">
+        <div>
+          <a class="btn btn-info border rounded mt-1 mb-1 dash-btn" href="adminPanel.html">Dashboard</a>
+        </div>
         <div>
             <a class="btn btn-info border rounded mt-1 mb-1 dash-btn" href="addorder.html">Order</a>
         </div>

@@ -13,8 +13,33 @@ const loadAllAppointment = () => {
             <td>${item.id}</td>
             <td>${item.buyer}</td>
             <td>${item.flower}</td>
-            <td>${item.order_types}</td>
-            <td>${item.order_status}</td>
+            
+            <td>
+              ${(() => {
+                const statusClasses = {
+                  Online: "btn btn-warning",
+                  Offline: "btn btn-secondary",
+                };
+                return item.order_types in statusClasses
+                  ? `<button class="${statusClasses[item.order_types]}">${item.order_types}</button>`
+                  : "";
+              })()}
+            </td>
+            
+            <td>
+              ${(() => {
+                const statusClasses = {
+                  Pending: "btn btn-warning",
+                  Processing: "btn btn-info",
+                  Completed: "btn btn-success",
+                  Rejected: "btn btn-danger",
+                };
+                return item.order_status in statusClasses
+                  ? `<button class="${statusClasses[item.order_status]}">${item.order_status}</button>`
+                  : "";
+              })()}
+            </td>
+
             <td>
                 ${
                   item.order_status == "Pending"

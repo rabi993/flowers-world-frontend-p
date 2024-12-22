@@ -197,6 +197,7 @@
 
 
 const loadorder = () => {
+  
   const buyer_id = localStorage.getItem("buyer_id");
   const orderIds = JSON.parse(localStorage.getItem("order_ids")) || []; // Get stored order IDs
 
@@ -204,6 +205,8 @@ const loadorder = () => {
     .then((res) => res.json())
     .then((data) => {
       console.log("All Orders:", data);
+      
+
 
       // Filter only the orders whose IDs are in the orderIds array
       const filteredOrders = data.filter((item) => orderIds.includes(item.id));
@@ -216,7 +219,7 @@ const loadorder = () => {
       if (filteredOrders.length === 0) {
         // Show a message if no orders are present
         const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="12" class="text-center">No items added to your cart.</td>`;
+        tr.innerHTML = `<td colspan="12" class="text-center bg-secondary">No items added to your cart.</td>`;
         parent.appendChild(tr);
       } else {
         filteredOrders.forEach((item) => {
@@ -242,8 +245,34 @@ const loadorder = () => {
             </td>
             <td>${item.quantity}</td>
             <td>${item.mobile_no}</td>
-            <td>${item.order_date}</td>
-            <td>${item.delivery_date}</td>
+            <td>
+              ${
+                item.order_date
+                  ? (() => {
+                      const date = new Date(item.order_date);
+                      const day = String(date.getUTCDate()).padStart(2, "0");
+                      const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+                      const year = date.getUTCFullYear();
+                      const hours = String(date.getUTCHours()).padStart(2, "0");
+                      const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+                      return `${day}-${month}-${year}#T${hours}:${minutes}`;
+                    })()
+                  : "N/A"
+              }
+            </td>
+            <td>
+              ${
+                item.delivery_date
+                  ? (() => {
+                      const date = new Date(item.delivery_date);
+                      const day = String(date.getUTCDate()).padStart(2, "0");
+                      const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Month is 0-based
+                      const year = date.getUTCFullYear();
+                      return `${day}-${month}-${year}`;
+                    })()
+                  : "N/A"
+              }
+            </td>
             <td>${item.delivery_address}</td>
             <td>${item.price} $</td>
             <td>${item.total_price} $</td>
@@ -278,42 +307,44 @@ const loadorder = () => {
 
       }
       parent2.appendChild(div);
+      
     })
     .catch((err) => {
       console.error("Failed to load orders:", err);
     });
+    
 };
 
 // PDF Generation Function
-const downloadPdf = () => {
-  const element = document.getElementById("pdf-container1");
+// const downloadPdf = () => {
+//   const element = document.getElementById("pdf-container1");
 
-  if (!element) {
-    console.error("PDF container not found.");
-    return;
-  }
+//   if (!element) {
+//     console.error("PDF container not found.");
+//     return;
+//   }
 
-  // Configure options for html2pdf
-  const options = {
-    margin: 10,
-    filename: "order_details.pdf", // Output PDF file name
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2 }, // Higher scale for better resolution
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-  };
+//   // Configure options for html2pdf
+//   const options = {
+//     margin: 0,
+//     filename: "order_details.pdf", // Output PDF file name
+//     image: { type: "jpeg", quality: 0.98 },
+//     html2canvas: { scale: 2 }, // Higher scale for better resolution
+//     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+//   };
 
-  // Use html2pdf to convert the container into a downloadable PDF
-  html2pdf().set(options).from(element).save().catch((err) => {
-    console.error("PDF generation failed:", err);
-  });
-};
+//   // Use html2pdf to convert the container into a downloadable PDF
+//   html2pdf().set(options).from(element).save().catch((err) => {
+//     console.error("PDF generation failed:", err);
+//   });
+// };
 
 
 // Call the function to load the filtered orders into the table
 loadorder();
 
 // Attach the download functionality to a button
-document.getElementById("download-btn").addEventListener("click", downloadPdf);
+// document.getElementById("download-btn").addEventListener("click", downloadPdf);
 
 
 // confirm button click 

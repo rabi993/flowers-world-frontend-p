@@ -41,9 +41,9 @@
       </div>
     </nav>
     <div id="pdf-container1" class="pdf-container text-center">
-      <h1 class="text-info text-center my-2">SMART CARE</h1>
+      <h1 class="text-info text-center my-2">Flower's World</h1>
     </div>
-    <div class="order-container sub-order-container">
+    <div class="order-container container   sub-order-container">
       <table class="table">
         <thead>
           <tr>
@@ -61,7 +61,6 @@
             <th>Delivery_address</th>
             <th>Price/p</th>
             <th>Total Price</th>
-            <th>action</th>
           </tr>
         </thead>
         <tbody id="table-body1">
@@ -166,12 +165,14 @@
     </div>
     
     <script>
+      
       const billInput = document.getElementById("billInput");
       const paymentButton = document.getElementById("payment");
       const totalWithVAT = parseFloat(localStorage.getItem("totalWithVAT")) ;
     
       // Enable the button only if the input matches totalWithVAT
       billInput.addEventListener("input", () => {
+        
         const inputAmount = parseFloat(billInput.value);
         if (inputAmount === totalWithVAT) {
           paymentButton.removeAttribute("disabled");
@@ -187,6 +188,8 @@
 
   // Add the 'PAID' message dynamically
   document.getElementById("paid").innerHTML = `
+    
+    
     <h3 class="text-center text-success">PAID</h3>
   `;
 
@@ -214,14 +217,27 @@
   localStorage.removeItem("totalWithVAT");
 
   // Reset any necessary UI components (optional)
-  document.getElementById("totalamount").innerHTML = "";
-  document.getElementById("totalamountV").innerHTML = "";
+  // document.getElementById("totalamount").innerHTML = "";
+  // document.getElementById("totalamountV").innerHTML = "";
 
   // Hide the input and payment section after successful payment
   document.querySelector(".text-center").style.display = "none";
 });
 
 
+    </script>
+    <script>
+      // Reload the page automatically once after 1 second
+        window.onload = function () {
+          setTimeout(() => {
+            if (!localStorage.getItem("reloaded")) {
+              localStorage.setItem("reloaded", "true");
+              location.reload();
+            } else {
+              localStorage.removeItem("reloaded");
+            }
+          }, 1000); // 1000 milliseconds = 1 second
+        };
     </script>
     
    
