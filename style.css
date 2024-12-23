@@ -8,7 +8,7 @@ li{
     list-style: none;
 }
 nav{
-    background-color:aqua;
+    background-color:rgb(9, 113, 113);
 
 }
 .nav_text a{
@@ -48,7 +48,7 @@ nav{
     text-align: center;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(cyan,rgb(33, 137, 137));
+    background: linear-gradient(rgb(13, 96, 96),rgb(79, 211, 211));
     box-shadow: 4px 4px 8px gray;
     border-radius:10px;
     /* padding: 30px; */
@@ -78,7 +78,7 @@ nav{
 }
 .title{
     font-size: 44px;
-    color: aqua;
+    color: rgb(9, 113, 113);
     text-align: center;
 
 }
@@ -132,7 +132,7 @@ nav{
 
 footer{
     padding: 50px;
-    background: linear-gradient(66deg, #1CA8C7 -5.25%, #439FA5 46.76%, #4C7D8C 98.77%);;
+    background: linear-gradient(66deg, #0c6c75 -5.25%, #06e8f8 46.76%, #1b7484 98.77%);;
 }
 
 .doctor-img img{
@@ -221,4 +221,21 @@ border-radius:100px;
     
     margin-top: -680px;
     margin-right: -190px;
+}
+.bottom_banner{
+    background-image: url("./Images/ban2.jpg") ;
+
+    height: 350px;   
+    text-align: center;   
+    box-shadow: 4px 4px 8px gray;
+    border-radius:10px;
+    /* padding: 30px; */
+}
+.bottom_banner2{
+    height: 200px;
+    width: 100%;
+    
+    box-shadow: 4px 4px 8px gray;
+    border-radius:10px;
+    /* padding: 30px; */
 }

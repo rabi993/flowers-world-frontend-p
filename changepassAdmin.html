@@ -103,15 +103,24 @@
                 <!-- dashboard details -->
                 
           
-                <div class="container my-5">
-                  <div class="d-flex justify-content-center gap-3 my-3">
-                    
-                    <a target="" class="text-white text-decoration-none btn btn-info border rounded p-2" href="changepassAdmin.html">Change Password</a>
-                    <a target="" class="text-white text-decoration-none btn btn-secondary border rounded p-2" href="updateProfileAdmin.html">Update Your Profile</a>
-                    
-                  </div>
-                  <div id="user-card-container" class="d-flex justify-content-center"></div>
-                </div>
+                <div id="change-password-container">
+                  <h2 class="text-center">Change Password</h2>
+                  <form class="w-50  m-auto border rounded-2 p-5" id="change-password-form">
+                      <div>
+                          <label class=" mb-3" for="old-password">Old Password:</label>
+                          <input class="rounded-2 mb-3" type="password" id="old-password" name="old_password" required>
+                      </div>
+                      <div>
+                          <label class=" mb-3" for="new-password">New Password:</label>
+                          <input class="rounded-2 mb-3" type="password" id="new-password" name="new_password" required>
+                      </div>
+                      <div>
+                          <label  class=" mb-3" for="confirm-new-password">Confirm New Password:</label>
+                          <input class="rounded-2 mb-3" type="password" id="confirm-new-password" name="confirm_new_password" required>
+                      </div>
+                      <button class="btn btn-info mb-3" type="submit">Change Password</button>
+                  </form>
+                  <div class="mb-3" id="message"></div>
                 
 
             </div>
@@ -131,8 +140,7 @@
     <script src="./app.js"></script>
     <script src="./docDetails.js"></script>
     <script src="./logout.js"></script>
-    <script src="./profileadmin.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./changepassAdmin.js"></script>
     
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"

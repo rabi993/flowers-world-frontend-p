@@ -112,6 +112,7 @@
 
 // loadAllOrder();
 
+
 const loadAllOrder = () => {
   fetch(`http://127.0.0.1:8000/orders/`)
     .then((res) => res.json())

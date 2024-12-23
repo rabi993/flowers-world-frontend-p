@@ -199,7 +199,7 @@ const displayReview = (reviews) => {
     const div = document.createElement("div");
     div.classList.add("review-card");
     div.innerHTML = `
-        <img src="./Images/girl.png" alt="" />
+        <img src="${review.image ? review.buyer.image : './Images/man.jpg'}" alt="Reviewer Image" />
             <h4>${review.reviewer}</h4>
             <h5>${review.flower}</h5>
             <p>

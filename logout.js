@@ -55,6 +55,15 @@ const orderdelete = () => {
 
 // ==================== Logout Functionality ====================
 const handlelogOut = () => {
+  // Show confirmation prompt before logging out
+  const confirmLogout = confirm("Are you sure you want to log out?");
+
+  if (!confirmLogout) {
+    // If user cancels, do nothing and return
+    console.log("Logout canceled.");
+    return;
+  }
+  
   const token = localStorage.getItem("token");
 
   fetch("http://127.0.0.1:8000/buyers/logout/", {
