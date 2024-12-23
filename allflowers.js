@@ -1,28 +1,33 @@
 const loadDoctors = (search = "") => {
-    const doctorsContainer = document.getElementById("doctors");
-    const spinner = document.getElementById("spinner");
-    const noData = document.getElementById("nodata");
-  
-    doctorsContainer.innerHTML = "";
-    spinner.style.display = "block";
-    noData.style.display = "none";
-  
-    fetch(`http://127.0.0.1:8000/flowers/list/?search=${search}`)
-      .then((res) => res.json())
-      .then((data) => {
-        spinner.style.display = "none";
-        if (data.results && data.results.length > 0) {
-          displyDoctors(data.results);
-        } else {
-          noData.style.display = "block";
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching doctors:", error);
-        spinner.style.display = "none";
+  const doctorsContainer = document.getElementById("doctors");
+  const spinner = document.getElementById("spinner");
+  const noData = document.getElementById("nodata");
+
+  doctorsContainer.innerHTML = "";
+  spinner.style.display = "block";
+  noData.style.display = "none";
+
+  const url = `http://127.0.0.1:8000/flowers/list/?search=${search}`;
+  console.log("Fetching data from:", url);
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      spinner.style.display = "none";
+      if (data.results && data.results.length > 0) {
+        displyDoctors(data.results);
+      } else {
         noData.style.display = "block";
-      });
-  };
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching doctors:", error);
+      spinner.style.display = "none";
+      noData.style.display = "block";
+    });
+};
+
+
   
   const displyDoctors = (doctors) => {
     // Sort doctors array by id in descending order
@@ -38,14 +43,14 @@ const loadDoctors = (search = "") => {
       div.innerHTML = `
         <img class="doc-img" src="${doctor.image}" alt="${doctor.title}" />
         <h4>${doctor.title}</h4>
-        <div>${doctor.category.map((item) => `<button>${item}</button>`).join("")}</div>
-        <h6>Available: ${doctor.available}</h6>
-        <p>${doctor.content.slice(0, 40)}...</p>
-        <h6>Price: ${doctor.price}</h6>
-        <div>${doctor.color.map((item) => `<button>${item}</button>`).join("")}</div>
-        <button>
-          <a href="docDetails.html?flowerId=${doctor.id}">Details</a>
-        </button>
+        <div>${doctor.category.map((item) => `<button class="btn btn-info rounded btn-sm ">${item}</button>`).join("")}</div>
+        <p style="margin: 0px; "><b>Available:</b> ${doctor.available} Piece</p>
+        <small style="color: grey; margin: 0px;font-size:10px;">${doctor.content.slice(0, 50)}...</small>
+        <p style="margin: 0px; "<b>Price:</b> ${doctor.price}$</p>
+        <div>${doctor.color.map((item) => `<button  class="btn btn-secondary rounded btn-sm ">${item}</button>`).join("")}</div>
+        
+          <a style="text-decoration: none; " class="btn btn-success rounded  mt-1" href="docDetails.html?flowerId=${doctor.id}">Details</a>
+        
       `;
       doctorsContainer.appendChild(div);
     });
@@ -62,7 +67,7 @@ const loadDoctors = (search = "") => {
         data.forEach((item) => {
           const li = document.createElement("li");
           li.classList.add("dropdown-item");
-          li.innerHTML = `<button class="btn btn-link" onclick="loadDoctors('${item.name}')">${item.name}</button>`;
+          li.innerHTML = `<button class="btn btn-info" onclick="loadDoctors('${item.name}')">${item.name}</button>`;
           parent.appendChild(li);
         });
       })
@@ -78,7 +83,7 @@ const loadDoctors = (search = "") => {
         data.forEach((item) => {
           const li = document.createElement("li");
           li.classList.add("dropdown-item");
-          li.innerHTML = `<button class="btn btn-link" onclick="loadDoctors('${item.name}')">${item.name}</button>`;
+          li.innerHTML = `<button class="btn btn-info" onclick="loadDoctors('${item.name}')">${item.name}</button>`;
           parent.appendChild(li);
         });
       })

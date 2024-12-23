@@ -77,77 +77,67 @@
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem,
       optio?
     </p>
-    <div
-      class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible"
-    >
-      <ul id="service-container" class=" py-4"></ul>
-
-      
-
-      
-    </div>
+    <div class="row" id="service-container"></div>
   </div>
-
+  
   <script>
     const loadServices = () => {
-    // Fetch services from the API
-    fetch('http://127.0.0.1:8000/services/')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
-      .then((data) => displayService(data))
-      .catch((err) => {
-        console.error("Failed to fetch services:", err);
-        displayErrorMessage("Failed to load services. Please try again later.");
+      // Fetch services from the API
+      fetch('http://127.0.0.1:8000/services/')
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return res.json();
+        })
+        .then((data) => displayService(data))
+        .catch((err) => {
+          console.error("Failed to fetch services:", err);
+          displayErrorMessage("Failed to load services. Please try again later.");
+        });
+    };
+  
+    const displayService = (services) => {
+      const parent = document.getElementById("service-container");
+  
+      // Clear the parent container first (optional, in case of multiple calls)
+      parent.innerHTML = "";
+  
+      services.forEach((service) => {
+        const div = document.createElement("div");
+        div.classList.add("col-lg-6", "col-md-6", "col-sm-12", "mb-4");
+        div.innerHTML = `
+          <div class="card shadow h-100" style="width: 500px; height: 350px; margin: 0 auto;">
+            <div class="ratio ratio-16x9">
+              <img
+                src="${service.image}"
+                class="card-img-top"
+                loading="lazy"
+                alt="${service.name || 'Service Image'}"
+              />
+            </div>
+            <div class="card-body">
+              <h3 class="card-title h5">${service.name || "Unnamed Service"}</h3>
+              <p class="card-text">
+                ${service.description ? service.description : "No description available."}
+              </p>
+              
+            </div>
+          </div>
+        `;
+        parent.appendChild(div);
       });
-  };
+    };
   
-  const displayService = (services) => {
-    const parent = document.getElementById("service-container");
+    const displayErrorMessage = (message) => {
+      const parent = document.getElementById("service-container");
+      parent.innerHTML = `<p class="text-danger">${message}</p>`;
+    };
   
-    // Clear the parent container first (optional, in case of multiple calls)
-    parent.innerHTML = "";
-  
-    services.forEach((service) => {
-      const li = document.createElement("li");
-      li.classList.add("mb-4"); // Optional: Add spacing between items
-      li.innerHTML = `
-        <div class="card shadow h-100">
-          <div class="ratio ratio-16x9">
-            <img
-              src="${service.image}"
-              class="card-img-top"
-              loading="lazy"
-              alt="${service.name || 'Service Image'}"
-            />
-          </div>
-          <div class="card-body p-3 p-xl-5">
-            <h3 class="card-title h5">${service.name || "Unnamed Service"}</h3>
-            <p class="card-text">
-              ${service.description ? service.description.slice(0, 140) : "No description available."}
-            </p>
-            <a href="#" class="btn btn-primary">Details</a>
-          </div>
-        </div>
-      `;
-      parent.appendChild(li);
-    });
-  };
-  
-  const displayErrorMessage = (message) => {
-    const parent = document.getElementById("service-container");
-    parent.innerHTML = `<p class="text-danger">${message}</p>`;
-  };
-  
-  // Call loadServices when the DOM is ready
-  document.addEventListener("DOMContentLoaded", loadServices);
-
-  
-  loadServices();  
+    // Call loadServices when the DOM is ready
+    document.addEventListener("DOMContentLoaded", loadServices);
   </script>
+  
   <script src="./logout.js"></script>
   <script src="./index.js"></script>
 </body>

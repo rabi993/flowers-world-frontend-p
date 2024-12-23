@@ -60,10 +60,21 @@ nav{
     border-radius: 20px;
 }
 .service-container{
-    width: 1200px;
+    width: 1000px;
     margin: auto;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     
+}
+.service_card {
+    width: 370px;
+    height: 330px;
+}
+.service_card_img{
+    width: 368px;
+    height: 200px;
+}
+.service_card_body{
+    margin-top: -20px;
 }
 .title{
     font-size: 44px;
@@ -73,13 +84,13 @@ nav{
 }
 .doctors-container{
 
-    margin-top: 50px;
+    /* margin-top: 50px; */
     padding: 30px;
 }
 .doc-card{
     width: 250px;
 
-    height: 400px;
+    height: 350px;
     box-shadow: 4px 4px 8px gray;
     border-radius: 10px;
     text-align:center;
@@ -106,12 +117,12 @@ nav{
     display: none;
 }
 .review-card{
-    width: 250px;
-    height: 300px;
+    width: 200px;
+    height: 250px;
     box-shadow: 4px 4px 8px gray;
     border-radius:10px;
     text-align: center;
-    padding: 10px;
+    padding: 5px;
 }
 .review-card img{
     width: 70px;

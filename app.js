@@ -22,23 +22,23 @@ const displayService = (services) => {
 
   services.forEach((service) => {
     const li = document.createElement("li");
-    li.classList.add("mb-4"); // Optional: Add spacing between items
+    // li.classList.add("mb-4"); // Optional: Add spacing between items
     li.innerHTML = `
-      <div class="card shadow h-100">
+      <div class="card shadow service_card">
         <div class="ratio ratio-16x9">
           <img
             src="${service.image}"
-            class="card-img-top"
+            class="card-img-top service_card_img"
             loading="lazy"
             alt="${service.name || 'Service Image'}"
           />
         </div>
-        <div class="card-body p-3 p-xl-5">
+        <div class="card-body p-3  service_card_body">
           <h3 class="card-title h5">${service.name || "Unnamed Service"}</h3>
           <p class="card-text">
-            ${service.description ? service.description.slice(0, 140) : "No description available."}
+            ${service.description ? service.description.slice(0, 40) : "No description available."}...
           </p>
-          <a href="#" class="btn btn-primary">Details</a>
+          <a href="service.html" class="btn btn-primary">Details</a>
         </div>
       </div>
     `;
@@ -89,102 +89,102 @@ document.addEventListener("DOMContentLoaded", loadServices);
 //   });
 // };
 
-const loadDoctors = (search) => {
-  document.getElementById("doctors").innerHTML = "";
-  document.getElementById("spinner").style.display = "block";
-  console.log(search);
-  fetch(
-    `http://127.0.0.1:8000/flowers/list/?search=${
-      search ? search : ""
-    }`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      if (data.results.length > 0) {
-        document.getElementById("spinner").style.display = "none";
-        document.getElementById("nodata").style.display = "none";
-        displyDoctors(data?.results);
-      } else {
-        document.getElementById("doctors").innerHTML = "";
-        document.getElementById("spinner").style.display = "none";
-        document.getElementById("nodata").style.display = "block";
-      }
-    });
-};
+// const loadDoctors = (search) => {
+//   document.getElementById("doctors").innerHTML = "";
+//   document.getElementById("spinner").style.display = "block";
+//   console.log(search);
+//   fetch(
+//     `http://127.0.0.1:8000/flowers/list/?search=${
+//       search ? search : ""
+//     }`
+//   )
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//       if (data.results.length > 0) {
+//         document.getElementById("spinner").style.display = "none";
+//         document.getElementById("nodata").style.display = "none";
+//         displyDoctors(data?.results);
+//       } else {
+//         document.getElementById("doctors").innerHTML = "";
+//         document.getElementById("spinner").style.display = "none";
+//         document.getElementById("nodata").style.display = "block";
+//       }
+//     });
+// };
 
-const displyDoctors = (doctors) => {
-  doctors?.forEach((doctor) => {
-    // console.log(doctor);
-    const parent = document.getElementById("doctors");
-    const div = document.createElement("div");
-    div.classList.add("doc-card", "col-12", "col-md-6", "col-lg-4");
-    div.innerHTML = `
-        <img class="doc-img" src=${doctor.image} alt="" />
-              <h4>${doctor?.title}</h4>
-              ${doctor?.category?.map((item) => {
-                return `<button>${item}</button>`;
-              })}
-              <h6>Available : ${doctor?.available}</h6>
-              <p>
-              ${doctor?.content.slice(0, 40)}...
-              </p>
+// const displyDoctors = (doctors) => {
+//   doctors?.forEach((doctor) => {
+//     // console.log(doctor);
+//     const parent = document.getElementById("doctors");
+//     const div = document.createElement("div");
+//     div.classList.add("doc-card", "col-12", "col-md-6", "col-lg-4");
+//     div.innerHTML = `
+//         <img class="doc-img" src=${doctor.image} alt="" />
+//               <h4>${doctor?.title}</h4>
+//               ${doctor?.category?.map((item) => {
+//                 return `<button>${item}</button>`;
+//               })}
+//               <h6>Available : ${doctor?.available}</h6>
+//               <p>
+//               ${doctor?.content.slice(0, 40)}...
+//               </p>
               
-              <h6>Price : ${doctor?.price}</h6>
-              <p>
-              ${doctor?.color?.map((item) => {
-                return `<button>${item}</button>`;
-              })}
-              </p>
+//               <h6>Price : ${doctor?.price}</h6>
+//               <p>
+//               ${doctor?.color?.map((item) => {
+//                 return `<button>${item}</button>`;
+//               })}
+//               </p>
 
-              <button > <a target="" href="docDetails.html?flowerId=${
-                doctor.id
-              }">Details</a> </button>
-        `;
+//               <button > <a target="" href="docDetails.html?flowerId=${
+//                 doctor.id
+//               }">Details</a> </button>
+//         `;
 
-    parent.appendChild(div);
-  });
-};
-
-
+//     parent.appendChild(div);
+//   });
+// };
 
 
-const loadDesignation = () => {
-  fetch("http://127.0.0.1:8000/categories/")
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((item) => {
-        const parent = document.getElementById("drop-deg");
-        const li = document.createElement("li");
-        li.classList.add("dropdown-item");
-        // li.innerText = item?.name;
-        li.innerHTML = `
-        <li onclick="loadDoctors('${item.name}')"> ${item?.name}</li>
-          `;
-        parent.appendChild(li);
-      });
-    });
-};
-const loadSpecialization = () => {
-  fetch("http://127.0.0.1:8000/colors/")
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach((item) => {
-        const parent = document.getElementById("drop-spe");
-        const li = document.createElement("li");
-        li.classList.add("dropdown-item");
-        li.innerHTML = `
-        <li onclick="loadDoctors('${item.name}')"> ${item.name}</li>
-          `;
-        parent.appendChild(li);
-      });
-    });
-};
 
-const handleSearch = () => {
-  const value = document.getElementById("search").value;
-  loadDoctors(value);
-};
+
+// const loadDesignation = () => {
+//   fetch("http://127.0.0.1:8000/categories/")
+//     .then((res) => res.json())
+//     .then((data) => {
+//       data.forEach((item) => {
+//         const parent = document.getElementById("drop-deg");
+//         const li = document.createElement("li");
+//         li.classList.add("dropdown-item");
+//         // li.innerText = item?.name;
+//         li.innerHTML = `
+//         <li onclick="loadDoctors('${item.name}')"> ${item?.name}</li>
+//           `;
+//         parent.appendChild(li);
+//       });
+//     });
+// };
+// const loadSpecialization = () => {
+//   fetch("http://127.0.0.1:8000/colors/")
+//     .then((res) => res.json())
+//     .then((data) => {
+//       data.forEach((item) => {
+//         const parent = document.getElementById("drop-spe");
+//         const li = document.createElement("li");
+//         li.classList.add("dropdown-item");
+//         li.innerHTML = `
+//         <li onclick="loadDoctors('${item.name}')"> ${item.name}</li>
+//           `;
+//         parent.appendChild(li);
+//       });
+//     });
+// };
+
+// const handleSearch = () => {
+//   const value = document.getElementById("search").value;
+//   loadDoctors(value);
+// };
 
 const loadReview = () => {
   // fetch("https://testing-8az5.onrender.com/doctor/review/")
@@ -212,9 +212,9 @@ const displayReview = (reviews) => {
 };
 
 loadServices();
-loadDoctors();
-loadDesignation();
-loadSpecialization();
+// loadDoctors();
+// loadDesignation();
+// loadSpecialization();
 loadReview();
 
 

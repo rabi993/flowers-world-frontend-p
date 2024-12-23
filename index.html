@@ -15,6 +15,8 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
+    
+    
 
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -84,7 +86,7 @@
         <div
           class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible"
         >
-          <ul id="service-container" class="slider-container py-4"></ul>
+          <ul id="service-container" class="slider-container "></ul>
 
           <button
             type="button"
@@ -108,6 +110,7 @@
       </div>
 
       <!-- all doctors section  -->
+
       <div class="doctors-container row d-flex justify-content-center">
         <div class="col-md-4 text-center d-flex gap-3 justify-content-end">
           <div class="dropdown">
@@ -144,8 +147,8 @@
           </div>
         </div>
         <div class="col-md-8">
-          <input id="search" type="text" placeholder="search..." />
-          <button onclick="handleSearch()">Search</button>
+          <input class="border rounded-2" id="search" type="text" placeholder="search..." />
+          <button class="btn btn-secondary" onclick="handleSearch()">Search</button>
           <div id="doctors" class="doctors d-flex  row gap-3 mt-5 container"></div>
           <div id="nodata" class="nodata">
             <img src="./Images/nodata.png" alt="" />
@@ -155,9 +158,59 @@
           </div>
         </div>
       </div>
+      <!-- <div class=" mt-3 px-5 row d-flex justify-content-center">
+        <div class="col-lg-2 text-center d-flex gap-3 justify-content-center">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="categoryDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Flower Category
+            </button>
+            <ul
+              id="drop-deg"
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="categoryDropdown"
+            ></ul>
+          </div>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="colorDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Color
+            </button>
+            <ul
+              id="drop-spe"
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="colorDropdown"
+            ></ul>
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <div class="input-group mb-3 ps-5 ">
+            <input id="search" type="text" class="form-control bg-secondary " placeholder="Search..." />
+            <button class="btn btn-primary" onclick="handleSearch()">Search</button>
+          </div>
+          <div id="doctors" class="doctors d-flex row gap-3 pb-3  container"></div>
+          <div id="nodata" class="nodata text-center" style="display: none;">
+            <img src="./Images/nodata.png" alt="No data" />
+            <p>No results found</p>
+          </div>
+          <div id="spinner" class="loading text-center" style="display: none;">
+            <h4>Loading...</h4>
+          </div>
+        </div>
+      </div> -->
 
       <!-- all reviews -->
-      <div class="review-container container p-5 mt-5 w-75 m-auto">
+      <div class="review-container container  w-75 m-auto">
         <h1 class="title">Clients Review about us</h1>
         <p class="description text-center w-50 m-auto">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
@@ -166,9 +219,9 @@
         </p>
         <div class="reviews">
           <div
-            class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible"
+            class="swiffy-slider slider-item-show4 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible"
           >
-            <ul id="review-container" class="slider-container py-4"></ul>
+            <ul id="review-container"  class="slider-container pt-3"></ul>
 
             <button
               type="button"
@@ -266,6 +319,7 @@
     <script src="./docDetails.js"></script>
     <script src="./logout.js"></script>
     <script src="./index.js"></script>
+    <script src="./allflowers.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"
       integrity="..."
@@ -275,7 +329,9 @@
       crossorigin="anonymous"
       defer
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
+   
+    
+    
     
     
   </body>
