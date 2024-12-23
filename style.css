@@ -214,3 +214,11 @@ border-radius:100px;
     
 }
 
+.new{
+    border-radius: 10px;
+    height: 40px;
+    width: 50px;
+    
+    margin-top: -680px;
+    margin-right: -190px;
+}

@@ -33,15 +33,21 @@ const loadDoctors = (search = "") => {
     // Sort doctors array by id in descending order
     const sortedDoctors = doctors.sort((a, b) => b.id - a.id);
 
+    let newTagLimit = 5;
+
   
     const doctorsContainer = document.getElementById("doctors");
     doctorsContainer.innerHTML = ""; // Clear previous content if any
   
-    sortedDoctors.forEach((doctor) => {
+    sortedDoctors.forEach((doctor, index) => {
+      const isNew = index < newTagLimit; 
       const div = document.createElement("div");
       div.classList.add("doc-card", "col-12", "col-md-6", "col-lg-4");
       div.innerHTML = `
         <img class="doc-img" src="${doctor.image}" alt="${doctor.title}" />
+        
+        
+        
         <h4>${doctor.title}</h4>
         <div>${doctor.category.map((item) => `<button class="btn btn-info rounded btn-sm ">${item}</button>`).join("")}</div>
         <p style="margin: 0px; "><b>Available:</b> ${doctor.available} Piece</p>
@@ -50,6 +56,7 @@ const loadDoctors = (search = "") => {
         <div>${doctor.color.map((item) => `<button  class="btn btn-secondary rounded btn-sm ">${item}</button>`).join("")}</div>
         
           <a style="text-decoration: none; " class="btn btn-success rounded  mt-1" href="docDetails.html?flowerId=${doctor.id}">Details</a>
+          <div>${isNew ? '<button class="btn btn-warning btn-sm ms-2 new">NEW</button>' : ''}</div>
         
       `;
       doctorsContainer.appendChild(div);
