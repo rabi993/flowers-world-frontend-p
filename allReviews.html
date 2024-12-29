@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flower Reviews</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #allreview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .review-card {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .review-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .review-card h4 {
+      margin: 10px 0 5px;
+      font-size: 1.2em;
+    }
+    .review-card h5 {
+      margin: 5px 0 10px;
+      color: #555;
+      font-size: 1em;
+    }
+    .review-card p {
+      margin: 10px 0;
+      color: #666;
+      font-size: 0.9em;
+    }
+    .review-card h6 {
+      margin-top: 10px;
+      color: #888;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Flower Reviews</h1>
+    <div id="review-container">
+      <!-- Reviews will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <script>
+    const loadReviews = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/flowers/reviews/");
+        const reviews = await response.json();
+        await displayReviews(reviews);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    const displayReviews = async (reviews) => {
+      const parent = document.getElementById("review-container");
+      parent.innerHTML = ""; // Clear existing reviews if any
+
+      // Process all reviews sequentially
+      for (const review of reviews) {
+        try {
+          // Fetch buyer information
+          const buyerResponse = await fetch(`http://127.0.0.1:8000/users/${review.reviewer}`);
+          const userData = await buyerResponse.json();
+          const username = userData.username;
+          const fullName = `${userData.first_name || "admin"} ${userData.last_name || "islam"}`;
+
+          // Fetch the complete user list
+          const userResponse = await fetch(`http://127.0.0.1:8000/buyers/list/`);
+          const buyersData = await userResponse.json();
+
+          // Find the specific user by username
+          const buyerData = buyersData.find((buyer) => buyer.user === username);
+          if (!buyerData) {
+            throw new Error(`Buyer with username ${username} not found.`);
+          }
+
+          // Extract user details
+        
+          const image = buyerData.image || "./Images/man.jpg";
+
+          // Fetch flower information
+          const flowerResponse = await fetch(`http://127.0.0.1:8000/flowers/list/${review.flower}`);
+          const flowerData = await flowerResponse.json();
+          const flowerName = flowerData.title;
+
+          // Create and append review card
+          const div = document.createElement("div");
+          div.classList.add("review-card");
+          div.innerHTML = `
+            <img src="${image}" alt="Reviewer Image" /> 
+            <h4>${fullName}</h4> 
+            <h5>${flowerName}</h5> 
+            <p>${review.body.slice(0, 100)}</p>
+            <h6>Rating: ${review.rating}</h6>
+          `;
+          parent.appendChild(div);
+        } catch (error) {
+          console.error("Error processing review:", error);
+        }
+      }
+    };
+
+    // Call the function to load reviews
+    loadReviews();
+  </script>
+</body>
+</html>

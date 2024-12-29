@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", loadServices);
 // };
 
 const loadReview = () => {
-  // fetch("https://testing-8az5.onrender.com/doctor/review/")
+  
   fetch("http://127.0.0.1:8000/flowers/reviews/")
     .then((res) => res.json())
     .then((data) => displayReview(data));

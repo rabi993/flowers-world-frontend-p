@@ -47,6 +47,16 @@
       </div>
     </nav>
     
+    <div>
+      <label for="status-filter">Filter by Order Status:</label>
+      <select id="status-filter" onchange="handleStatusFilter()">
+        <option value="All">All</option>
+        <option value="Pending">Pending</option>
+        <option value="Processing">Processing</option>
+        <option value="Completed">Completed</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
 
     <div class="order-container all-order-container">
       <table class="table">
